@@ -1,0 +1,3 @@
+class JobQuestion < Question
+  
+end

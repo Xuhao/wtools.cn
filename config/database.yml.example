@@ -1,0 +1,49 @@
+# MySQL.  Versions 4.1 and 5.0 are recommended.
+#
+# Install the MySQL driver:
+#   gem install mysql2
+# On Mac OS X:
+#   sudo gem install mysql2 -- --with-mysql2-dir=/usr/local/mysql2
+# On Mac OS X Leopard:
+#   sudo env ARCHFLAGS="-arch i386" gem install mysql2 -- --with-mysql2-config=/usr/local/mysql2/bin/mysql2_config
+#       This sets the ARCHFLAGS environment variable to your native architecture
+# On Windows:
+#   gem install mysql2
+#       Choose the win32 build.
+#       Install MySQL and put its /bin directory on your path.
+#
+# And be sure to use new-style password hashing:
+#   http://dev.mysql2.com/doc/refman/5.0/en/old-client.html
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: wtools
+  pool: 5
+  username: root
+  password: 
+  host: localhost
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: wtools_test
+  pool: 5
+  username: root
+  password:
+  host: localhost
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: wtools_production
+  pool: 5
+  username: root
+  password:
+  host: localhost
+

@@ -1,0 +1,41 @@
+<div class="tabs_header">
+  <ul class="tabs">
+    <li id="details_li" <%= raw(%~class="active"~) if params[:flag].blank? %> onclick="Task.changeTab('#details')"><a href="javascript:void(0);"><span><%=t(".details")%></span></a></li>
+    <li id="expense_li" <%= raw(%~class="active"~) if params[:flag] == 'expense' %> onclick="Task.changeTab('#expense')"><a href="javascript:void(0);"><span><%=t(".expense")%></span></a></li>
+    <li id="top_li" <%= raw(%~class="active"~) if params[:flag] == 'top' %>onclick="Task.changeTab('#top')"><a href="javascript:void(0);"><span><%=t(".top")%></span></a></li>
+  </ul>
+</div>
+<!--积分状况-->
+<div id="details" class="task_show_div<%= %~ hide~ unless params[:flag].blank? %>">
+  <div>
+    <%= image_tag "gold.png", :style => "vertical-align: middle;" %>当前总金币：<%= current_user.gold_count %><br /><br />
+    <b>积分日志（推广积分不记录日志）</b>
+    <div id="gold_log_list">
+      <%= render :partial => '/user_logs/index' %>
+    </div>
+  </div>
+  <div style="clear: both;"></div>
+</div>
+<!--积分排行-->
+<div id="top" class="task_show_div<%= %~ hide~ unless params[:flag] == 'top' %>">
+  <div>
+    <h3>积分排行Top20</h3>
+    <ul class="gold_top">
+      <% @gold_top_users.each do |user| -%>
+	<li class="<%= cycle('odd', 'even') %>">
+	  <span><img src="<%= user._avatar %>" alt="" /> <%= user.username %></span>
+	  <span class="float-r"><%= image_tag "gold.png", :style => "vertical-align: middle;" %><%= user.gold_count %></span>
+	</li>
+      <% end -%>
+    </ul>
+  </div>
+  <div style="clear: both;"></div>
+</div>
+
+<!--积分消费-->
+<div id="expense" class="task_show_div<%= %~ hide~ unless params[:flag] == 'expense' %>">
+  <div>
+    敬请期待！
+  </div>
+  <div style="clear: both;"></div>
+</div>

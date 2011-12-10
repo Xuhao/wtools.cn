@@ -1,0 +1,5 @@
+'zh-CN':
+  user_logs:
+    edit:
+      edit_user_log: "Editing user_log"
+      list_user_Logs: "Listing user_logs"

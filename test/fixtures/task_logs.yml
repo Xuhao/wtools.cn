@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  task_id: 1
+  done: 1
+  time_stamp: MyString
+  ratio: 1
+  content: MyString
+  evaluation: 1
+
+two:
+  task_id: 1
+  done: 1
+  time_stamp: MyString
+  ratio: 1
+  content: MyString
+  evaluation: 1

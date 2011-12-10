@@ -1,0 +1,9 @@
+en:
+  websites:
+    new:
+      h1: "Add a new website"
+    edit:
+      h1: "Edit website"
+    index:
+      h1: "My website list"
+      new: "New website"

@@ -1,0 +1,4 @@
+<%= form_for(@feedback || current_user.feedbacks.new, :as => :feedback) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => '/feedbacks/form', :object => f %>
+<% end %>

@@ -1,0 +1,12 @@
+<%= form_for(@message) do |f| %>
+  <%= f.error_messages %>
+  <%= f.label :title, '标题：', :class => nil %>
+  <%= f.text_field :title, :style => 'width: 350px;' %><span class="require">*</span>　　
+  <%= f.label :target, '目标：', :class => nil %>
+  <%= f.text_field :target %><br />
+  <%= f.label :content, '内容：', :class => nil, :style => "vertical-align: top;" %>
+  <%= f.text_area :content, :class => "xheditor-mfull {skin:'nostyle',emot:'pidgin'}", :style => 'height: 400px; width: 690px;' %><span class="require">*</span>
+  <br />
+  <%= f.submit %>
+<% end %>
+

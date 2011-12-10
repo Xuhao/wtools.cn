@@ -1,0 +1,19 @@
+en:
+  site:
+    index:
+      introduction:
+        task:
+          name: "Task"
+          description: "Task Features"
+        plan:
+          name: "Plan"
+          description: "Plan Features"
+        remind:
+          name: "Remind"
+          description: "Remind Features"
+        signature:
+          name: "Signature"
+          description: "Signature Features"
+      button:
+        login: "Login now"
+        register: " Register"

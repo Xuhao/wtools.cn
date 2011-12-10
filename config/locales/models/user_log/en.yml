@@ -1,0 +1,11 @@
+--- 
+en: 
+  activerecord: 
+    attributes: 
+      user_log: 
+        content: "Content"
+        log_type: "Log type"
+        query_string: "Query string"
+        created_at: "日期"
+    models: 
+      user_log: UserLog

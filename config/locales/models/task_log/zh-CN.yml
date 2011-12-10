@@ -1,0 +1,12 @@
+'zh-CN':
+  activerecord:
+    models:
+      task_log: "日志"
+    attributes:
+      task_log:
+        done: "完成"
+        time_stamp: "时间"
+        done_at: "完成时间"
+        ratio: "百分比"
+        content: "记录"
+        evaluation: "评价"

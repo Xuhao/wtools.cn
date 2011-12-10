@@ -1,0 +1,45 @@
+<div id="code_area">
+  <b class="show_path">
+    <p><%=t(".web_addr")%><%= link_to url = "#{full_host}#{show_path(@task)}", url, :target => '_blank' -%></p>
+    <p><%=t(".picture_addr")%><%= link_to img_path = "#{full_host}#{show_path(@task)}.png", img_path, :target => '_blank' -%></p>
+    <p>地址格式：<%= full_host %>/show/[用户名]/[应用名](/[应用ID])(.png)</p>
+  </b>
+  <h4 class="get_code"><%=t(".get_code")%></h4>
+  <textarea class="get_code"><iframe name="wtools" src="<%= full_host %><%= show_path(@task) %>" width="100%" height="100%" style="float:left;" frameborder="0" scrolling="auto" marginheight="0" marginwidth="0"></iframe>
+  </textarea>
+  <button style="vertical-align: top" onclick="if(window.clipboardData){window.clipboardData.clearData();window.clipboardData.setData('Text',$('textarea').text());alert('<%=t("alert.copy_to_clipboard")%>');}">
+    <%=t(".copy")%>
+  </button>
+</div>
+<% if !params[:task_id].blank? -%>
+  <h1><%=t(".set_style")%></h1>
+  <% @style = Style.find_by_id(@task.style_id) || @task.build_style -%>
+  <%= render "/styles/form" %>
+  <% content_for :script do -%>
+    <script type="text/javascript">
+      $('form').live('submit', function() {
+	$.ajax({
+	  type: 'post',
+	  url: '/styles/check',
+	  data: 'name=' + $('#style_name').val(),
+	  success: function(request){
+	    if(request == 'no' || (request == 'ok' && confirm('<%=t(".style_exists")%>'))){
+	      $.ajax({
+		type:'post',
+		url: '/styles<%= @style.new_record? ? "" : "/#{@style.id}" %>',
+		data:jQuery.param(jQuery($('form')).serializeArray()),
+		dataType:'script',
+		success:function(request){
+		  alert(request);
+		  if ($("#code_area").size() == 1)
+		    $("#code_area").effect('pulsate');
+		}
+	      });
+	    }
+	  }
+	});
+	return false;
+      })
+    </script>
+  <% end -%>
+<% end -%>

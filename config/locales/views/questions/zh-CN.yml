@@ -1,0 +1,25 @@
+'zh-CN':
+  questions:
+    index:
+      h1: "问题解答"
+      plan_question: "计划"
+      job_question: "任务"
+      dont_have_any_questions: "暂时还没有添加任何问题！请等待管理员添加。"
+      latest_questions: "最新问题"
+      hot_questions: "最热问题"
+            
+    form:
+      plan_question: "计划"
+      job_question: "任务"
+      title: "标题："
+      type: "类型："
+      task: '任务'
+      plan: '计划' 
+      anwser: "内容："
+
+    show:
+      plan_question: "计划"
+      job_question: "任务"
+      post_at: "发表于："
+      view: "查看：%{times}次"
+      back: "返回问题列表"

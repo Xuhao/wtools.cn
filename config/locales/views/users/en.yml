@@ -1,0 +1,27 @@
+en:
+  users:
+    new:
+      h1: "Account register"
+      submit: "Register"
+    edit:
+      info_edit_h1: "Information Edit"
+      pwd_edit_h1: "Password Edit"
+      locale_edit_h1: "Chose your language"
+      submit: "Update"
+    sign_in_up:
+      h1: "Account Login"
+      submit: "Login"
+
+  devise:
+    shared:
+      links:
+        sign_in: 'Sign in'
+        sign_up: 'Sign up'
+        forgot_your_password: 'Forgot your password?'
+        receive_confirmation_instructions: "Didn't receive confirmation instructions?"
+        receive_unlock_instructions: "Didn't receive unlock instructions?"
+    passwords:
+      reset_password: 'Send me reset password instructions'
+    registrations:
+      cancel_my_account: 'Cancel my account'
+      unhappy: 'Unhappy in here?'

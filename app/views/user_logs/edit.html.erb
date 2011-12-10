@@ -1,0 +1,28 @@
+<h1><%=t(".edit_user_log")%></h1>
+
+<%= form_for(@user_log) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_field :content %>
+  </p>
+  <p>
+    <%= f.label :query_string %><br />
+    <%= f.text_field :query_string %>
+  </p>
+  <p>
+    <%= f.label :created_at %><br />
+    <%= f.datetime_select :created_at %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @user_log %> |
+<%= link_to 'Back', user_logs_path %>

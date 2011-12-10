@@ -1,0 +1,9 @@
+<%= render :partial => '/sign_in_up', :locals => { :register => true, :login => false } -%>
+<% content_for :script do %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+      if ($("#user_email"))
+	$("#user_email").focus();
+    });
+  </script>
+<% end -%>

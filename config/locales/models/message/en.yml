@@ -1,0 +1,12 @@
+'zh-CN':
+  activerecord:
+    models:
+      message: "Message"
+    attributes:
+      message:
+        title: "Title"
+        content: "Content"
+        mold: "Mold"
+        created_at: "Created at"
+        target: "Target"
+        status: "Status"

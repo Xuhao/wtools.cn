@@ -1,0 +1,6 @@
+'zh-CN':
+  utilities:
+    search:
+      search_result: "搜索“%{keyword}”返回的结果"
+      no_result: "未检索到任何信息！"
+        

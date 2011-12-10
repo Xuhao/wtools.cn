@@ -1,0 +1,65 @@
+<%= form_for @style do |form| %>
+  <%= form.error_messages %>
+  <%= hidden_field_tag :task_id, @task.try(:id) %>
+  <div id="style-from">
+    <div id="adv">
+      <fieldset>
+	<legend><%=t(".boolean_setting")%></legend>
+	<%= form.check_box :name_display %><%= form.label :name_display %><br />
+	<%= form.check_box :completed_display %><%= form.label :completed_display %><br />
+	<div id="completed_word_type" class="style-radio" style="<%= 'display: none; ' unless @style.completed_display %>">
+	  <%= form.label :completed_word_type %><%= raw(form.radio_group(:completed_word_type, %w(ratio time_stamp none))) %>
+	</div>
+	<%= form.check_box :should_completed_display %><%= form.label :should_completed_display %><br />
+	<div id="should_completed_display" class="style-radio" style="<%= 'display: none; ' unless @style.should_completed_display %>">
+	  <%= form.label :should_completed_word_type %><%= raw(form.radio_group(:should_completed_word_type, %w(ratio time_stamp none))) %>
+	</div>
+	<%= form.check_box :detail_display %><%= form.label :detail_display %><br />
+	<div id="detail_display" class="style-radio" style="<%= 'display: none; ' unless @style.completed_display %>">
+	  <%= form.check_box :done_only_display %><%= form.label :done_only_display %><br />
+	  <%= form.check_box :log_display %><%= form.label :log_display %><br />
+	  <%= form.check_box :time_stamp_display %><%= form.label :time_stamp_display %><br />
+	  <%= form.check_box :once_ratio_display %><%= form.label :once_ratio_display %><br />
+	  <%= form.check_box :evaluation_display %><%= form.label :evaluation_display %><br />
+	  <%= form.check_box :statistical_evaluation_display %><%= form.label :statistical_evaluation_display %><br />
+	  <%= form.check_box :aspire_word_display %><%= form.label :aspire_word_display %><br />
+	</div>
+	<%= form.label :whole_word_type, nil, :style => "padding-right: 10px;" %><%= raw(form.radio_group(:whole_word_type, %w(ratio time_stamp none))) %><br />
+	<fieldset class="pic_style">
+	  <legend> <%=t(".picture_setting")%></legend>
+	  <%= form.label :bar_width %> <%= form.text_field :bar_width, :style => 'width: 50px;' %> px　　
+	  <%= form.label :bar_height %> <%= form.text_field :bar_height, :style => 'width: 50px;' %> px
+	</fieldset>
+      </fieldset>
+    </div>
+    <div id="color-picker">
+      <div id="picker"></div>
+      <div id="color-input">
+	<%= form.label :completed_bgcolor %> <%= form.text_field :completed_bgcolor, :style => 'width: 100px;', :class => 'color_field' %><br />
+	<%= form.label :should_completed_bgcolor %> <%= form.text_field :should_completed_bgcolor, :style => 'width: 100px;', :class => 'color_field' %><br />
+	<%= form.label :whole_bgcolor %> <%= form.text_field :whole_bgcolor, :style => 'width: 100px;', :class => 'color_field' %><br />
+	<%= form.label :border_color %> <%= form.text_field :border_color, :style => 'width: 100px;', :class => 'color_field' %><br />
+      </div>
+      <br /><%=t(".save_msg")%><br />
+      <%= form.label :name, nil, :class => '' %> <%= form.text_field :name, :style => 'width: 100px;', :onclick => '$("#style_list").slideToggle();' %><span class="require">*</span><%= form.submit t("buttons.save") %><span id="get_setting_roller"></span>
+      <% if controller_name == 'tasks' and !current_user.styles.empty? # task样式定制页面，样式名称输入框下拉列表 -%>
+	<div id="style_list" style="position: absolute; z-index: 10; background-color: #d5d9f1; margin-left: 30px; width: 110px; display: none">
+	  <% current_user.styles.select('name').each do |style| -%>
+      <%# if @task and @task.style.name != style.name # 列表中不显示当前的样式 -%>
+	    <span style="display: block;" onclick="Style.changeSetting(this);" onmouseover="$(this).css('background-color','#abb1d4')" onmouseout="$(this).css('background-color','#d5d9f1')"><div class="ui-icon-green ui-icon-triangle-1-e icon_span"></div><%= style.name %></span>
+      <%# end -%>
+	  <% end -%>
+	</div>
+      <% end -%>
+    </div>
+  </div>
+  <% content_for :script do %>
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function(){
+	Form.colorPicker();//颜色选择器
+      });
+    </script>
+  <% end -%>
+<% end -%>
+<!--样式效果动态展示-->
+<%= render '/styles/graph' %>

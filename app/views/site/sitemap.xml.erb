@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+  http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <url>
+    <loc>http://wtools.cn/</loc>
+    <lastmod><%= Date.today.to_s %></lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>http://wtools.cn/news</loc>
+    <lastmod><%= Task.last.try(:created_at).try(:to_date) %></lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>http://wtools.cn/about</loc>
+    <lastmod>2011-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>http://wtools.cn/contact</loc>
+    <lastmod>2011-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>http://wtools.cn/login</loc>
+    <lastmod>2011-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>http://wtools.cn/register</loc>
+    <lastmod>2011-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>http://wtools.cn/changelog</loc>
+    <lastmod><%= Date.today.to_s %></lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>http://wtools.cn/invite_from_rails</loc>
+    <lastmod>2011-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>http://wtools.cn/users/sign_up</loc>
+    <lastmod>2011-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.64</priority>
+  </url>
+  <url>
+    <loc>http://wtools.cn/users/password/new</loc>
+    <lastmod>2011-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.64</priority>
+  </url>
+  <url>
+    <loc>http://wtools.cn/users/sign_in</loc>
+    <lastmod>2011-04-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.64</priority>
+  </url>
+  <% User.all.each do |user| -%>
+    <% jobs, plans = user.jobs, user.plans -%>
+    <% unless jobs.empty? -%>
+      <% jobs_lastmod = jobs.max{|a,b| a.updated_at <=> b.updated_at }.updated_at.to_date -%>
+      <url>
+	<loc>http://wtools.cn<%= task_show_path(:username => user.username, :type => 'jobs') %></loc>
+	<lastmod><%= jobs_lastmod %></lastmod>
+	<changefreq>daily</changefreq>
+	<priority>0.6</priority>
+      </url>
+      <url>
+	<loc>http://wtools.cn<%= task_show_path(:username => user.username, :type => 'jobs', :format => 'png') %></loc>
+	<lastmod><%= jobs_lastmod %></lastmod>
+	<changefreq>daily</changefreq>
+	<priority>0.6</priority>
+      </url>
+      <% jobs.each do |job| -%>
+	<url>
+	  <loc>http://wtools.cn<%= task_show_path(:username => user.username, :type => 'jobs', :id => job.id) %></loc>
+	  <lastmod><%= job.updated_at.to_date %></lastmod>
+	  <changefreq>daily</changefreq>
+	  <priority>0.5</priority>
+	</url>
+	<url>
+	  <loc>http://wtools.cn<%= task_show_path(:username => user.username, :type => 'jobs', :id => job.id, :format => 'png') %></loc>
+	  <lastmod><%= job.updated_at.to_date %></lastmod>
+	  <changefreq>daily</changefreq>
+	  <priority>0.5</priority>
+	</url>
+	<url>
+	  <loc>http://wtools.cn<%= task_chart_path(:id => job.id, :type => 'line', :format => 'png') %></loc>
+	  <lastmod><%= job.updated_at.to_date %></lastmod>
+	  <changefreq>daily</changefreq>
+	  <priority>0.5</priority>
+	</url>
+	<url>
+	  <loc>http://wtools.cn<%= task_chart_path(:id => job.id, :type => 'pie', :format => 'png') %></loc>
+	  <lastmod><%= job.updated_at.to_date %></lastmod>
+	  <changefreq>daily</changefreq>
+	  <priority>0.5</priority>
+	</url>
+      <% end -%>
+    <% end -%>
+    <% unless plans.empty? -%>
+      <% plans_lastmod = plans.max{|a,b| a.updated_at <=> b.updated_at }.updated_at.to_date -%>
+      <url>
+	<loc>http://wtools.cn<%= task_show_path(:username => user.username, :type => 'plans') %></loc>
+	<lastmod><%= plans_lastmod %></lastmod>
+	<changefreq>daily</changefreq>
+	<priority>0.6</priority>
+      </url>
+      <url>
+	<loc>http://wtools.cn<%= task_show_path(:username => user.username, :type => 'plans', :format => 'png') %></loc>
+	<lastmod><%= plans_lastmod %></lastmod>
+	<changefreq>daily</changefreq>
+	<priority>0.6</priority>
+      </url>
+      <% plans.each do |plan| -%>
+	<url>
+	  <loc>http://wtools.cn<%= task_show_path(:username => user.username, :type => 'plans', :id => plan.id) %></loc>
+	  <lastmod><%= plan.updated_at.to_date %></lastmod>
+	  <changefreq>daily</changefreq>
+	  <priority>0.5</priority>
+	</url>
+	<url>
+	  <loc>http://wtools.cn<%= task_show_path(:username => user.username, :type => 'plans', :id => plan.id, :format => 'png') %></loc>
+	  <lastmod><%= plan.updated_at.to_date %></lastmod>
+	  <changefreq>daily</changefreq>
+	  <priority>0.5</priority>
+	</url>
+	<url>
+	  <loc>http://wtools.cn<%= task_chart_path(:id => plan.id, :type => 'line', :format => 'png') %></loc>
+	  <lastmod><%= plan.updated_at.to_date %></lastmod>
+	  <changefreq>daily</changefreq>
+	  <priority>0.5</priority>
+	</url>
+	<url>
+	  <loc>http://wtools.cn<%= task_chart_path(:id => plan.id, :type => 'pie', :format => 'png') %></loc>
+	  <lastmod><%= plan.updated_at.to_date %></lastmod>
+	  <changefreq>daily</changefreq>
+	  <priority>0.5</priority>
+	</url>
+      <% end -%>
+    <% end -%>
+  <% end -%>
+</urlset>

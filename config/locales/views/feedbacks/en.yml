@@ -1,0 +1,21 @@
+en:
+  feedbacks:
+    index:
+      h1: "Listing Feedbacks "
+      plan_feedback: "Plan"
+      job_feedback: "Job"
+      vote: "Vote"
+      agree: "Agree"
+      against: "Against"
+    form:
+      plan_feedback: "Plan"
+      job_feedback: "Job"
+      title: "Title"
+      content: "Content"
+      apply: "Apply: "
+      job: "Job"
+      plan: "Plan"
+
+    show:
+      plan_feedback: "Plan"
+      job_feedback: "Job"

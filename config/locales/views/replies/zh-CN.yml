@@ -1,0 +1,15 @@
+'zh-CN':
+  replies:
+    index:
+      n_level: " %{n}楼"
+      reply_at: "回复于：%{time} 前"
+      quote: "引用"
+      quote_somebody: "引用 %{username} 的发言："
+    new:
+      reply_title: "发表回复"
+    show:
+      user: "用户:"
+      feedback: "反馈:"
+      reply: "回复:"
+      content: "内容:"
+

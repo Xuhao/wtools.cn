@@ -1,0 +1,23 @@
+<% if form.object.new_record? -%>
+    <%= form.label :email %>
+    <%= form.text_field :email %><span class="require">*</span><br/><br/>
+    <%= form.label :username %>
+    <%= form.text_field :username %><span class="require">*</span><br /><br/>
+<% end -%>
+<% if info_edit? -%>
+    <%= form.label :phone_num %>
+    <%= form.text_field :phone_num, :size => 30 %><br /><br/>
+<% end -%>
+<% if pwd_edit? or form.object.new_record? -%>
+    <%= form.label :password, "#{t('words.new') unless form.object.new_record?}#{User.human_attribute_name('password')}" %>
+    <%= form.password_field :password, :minlength => User::PASSWORD_MINIMUM %><span class="require">*</span><br/><br/>
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation %><span class="require">*</span><br/><br/>
+<% end -%>
+<% if info_edit? or locale_edit? -%>
+    <%= form.label :locale %>
+    <%= form.select :locale, [["简体中文", 'zh-CN'], ["English", 'en']],
+                    :include_blank => true,
+                    :selected => (form.object.new_record? ? cookies[:locale] || extract_locale_from_accept_language_header : form.object.locale) %><br />
+    <br/>
+<% end -%>

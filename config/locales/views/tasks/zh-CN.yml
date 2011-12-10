@@ -1,0 +1,57 @@
+'zh-CN':
+  tasks:
+    status:
+      normal: "正常"
+      delay: "延期"
+      surpassing: "超前"
+      complete: "完成"
+      completed: "完成"
+      closed: "关闭"
+    index:
+      h1: "我的"
+      new: "添加"
+      edit_style: "编辑样式"
+      write_a_log: "写日志"
+    new:
+      h1: "创建新的%{task_type}"
+    edit:
+      h1: "编辑%{task_type}"
+      
+    show:
+      edit_style: "编辑样式"
+      detail: "详细"
+      display_others: "显示其他"
+      details: "详细信息"
+      write_a_log: "写任务日志"
+      task_preview: "效果展示"
+      get_code: "引用代码"
+      chart: "执行效率分析"
+      show_all: "显示全部"
+      create_a_log: "发表/编辑日志"
+      task_show: "效果展示"
+      invoke_code: "引用代码"
+      web_attr: "网页版地址："
+      picture_attr: "图片版地址："
+      get_code_msg: "获取代码(放在您的博客或网站上)："
+      copy: " 复制"
+      analy_graph: "执行效率分析图"
+      line_chart: "曲线图"
+      pie_chart: "圆饼图"
+      task_details: "%{name}详情"
+
+    task_logs_list:
+      the: "第%{number}"
+
+    form:
+      advanced_setting: "高级选项"
+      set_to_do_list: "设置执行清单"
+      show_site_msg: " 请选择展示的网站(按住Alt 或 托拉鼠标可多选) "
+      delay: "延迟"
+      delay2: "时提醒"
+    two:
+      web_addr: "网页版地址："
+      picture_addr: "图片版地址："
+      get_code: "获取代码(放在您的博客或网站上)："
+      copy: "复制"
+      set_style: "设置展示样式"
+      style_exists: "已经存在同名的样式，这将更新这个同名的样式，你确定这样做吗?"

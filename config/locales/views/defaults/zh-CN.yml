@@ -1,0 +1,48 @@
+'zh-CN':
+  alert:
+    confirm: "你确定要这么做吗?"
+    delete: "你确定删除他们吗?"
+    copy_to_clipboard: '已复制到剪切板！'
+
+  notice:
+    no_record: "您还未创建任何%{model}"
+  search:
+    keyword: "关键字"
+
+  info:
+    browser_requirement: "建议使用Safari/Chrome/Firefox/IE8+访问本站"
+  site:
+    title: "Wtools - 您的网络实用工具箱"
+
+  buttons:
+    add: "增加"
+    create: "创建"
+    update: "更新"
+    show: "查看"
+    edit: "编辑"
+    delete: "删除"
+    destory: "删除"
+    reply: "回复"
+    save: "保存"
+    saving: "保存中..."
+    view: "查看"
+    get_code: "获取代码" 
+    submit: "提交"
+
+  words:
+    new: "新"
+    edit: "编辑"
+    actions: "操作"
+    back: "返回"
+    'true': "是"
+    'false': "否"
+    the: "第"
+    day: "天"
+    week: "周"
+    month: "月"
+    quarter: "季度"
+    year: "年"
+    ratio: "百分比"
+    time_stamp: "时间标志"
+    none: "不显示"
+

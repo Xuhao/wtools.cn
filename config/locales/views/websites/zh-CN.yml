@@ -1,0 +1,11 @@
+'zh-CN':
+  websites:
+    new:
+      h1: "添加网站"
+    edit:
+      h1: "编辑网站信息"
+    index:
+      h1: "我的站点列表"
+      new: "添加新网站"
+      create_time: "创建时间"
+      add_new_site: "添加新站点"

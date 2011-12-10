@@ -1,0 +1,91 @@
+<div id="header">
+  <div id="header-body">
+    <div id="logo"><a href="/" title="去首页"><%= image_tag "logo.png" %></a></div>
+    <% unless flash.blank? -%>
+      <div id="flash" class="ui-widget">
+	<%- flash.each do |name, msg| %>
+	  <div class="ui-state-highlight <%= name.to_s == 'notice' ? 'ui-state-highlight' : 'ui-state-error' %> ui-corner-all" style="margin-top: 25px; padding: 0 5px;" id="flash_<%= name %>">
+	    <span class="ui-icon <%= name.to_s == 'notice' ? 'ui-icon-info' : 'ui-icon-alert' %> icon_span"></span><strong><%= name.to_s.titleize %>:</strong> <%= msg %>
+	  </div>
+	<%- end %>
+      </div>
+    <% end -%>
+    <div id="nav">
+      <!--多语言选择-->
+      <div id="r_top">
+	<%= link_to t("navigation.home"), root_path %>
+	<%= link_to t("navigation.about"), '/about' %>
+	<%= link_to t("navigation.contact"), '/contact' %>
+	<a href="http://www.rubyfans.com">Rubyfans</a>
+      </div>
+      <div id="user_nav">
+	<% if user_signed_in? -%>
+	  <div class="signed-in">
+	    <div id="nav-links">
+	      <span id="user-info-wrapper">
+		<span class="avatar">
+		  <%= link_to image_tag(current_user._avatar), '/users/set_avatar', :title => '设置头像' %>
+		</span>
+		<span class="username"><%= link_to current_user.username, user_root_path, :title => '去用户中心' %></span><span class="ui-icon ui-icon-triangle-1-s icon_span" id="user-info-icon"></span>
+	      </span>
+	      <%= link_to t("navigation.logout"), logout_path, :confirm => t("alert.confirm"), :id => 'logout-link' %><span class="cut">|</span>
+	      <%= link_to "设置", edit_user_registration_path %><span class="cut">|</span>信息：<%= link_to Message.not_read_count(current_user), messages_path, :class => 'count-link', :title => '查看我的信息' %><span class="cut">|</span>金币：<%= link_to current_user.gold_count, '/gold_center', :class => 'count-link', :title => '进入积分中心' %>
+	    </div>
+	    <!--用户详细信息-->
+	    <div id="user-detial">
+	      <table>
+		<tr>
+		  <td style="text-align: right; width: 6em;"><span>登陆次数：</span></td><td style="text-align: left;"><%= current_user.sign_in_count %>次</td>
+		</tr>
+		<tr>
+		  <td style="text-align: right;"><span>本次登陆：</span></td><td style="text-align: left;"><%= _l current_user.current_sign_in_at %></td>
+		</tr>
+		<tr>
+		  <td style="text-align: right;"><span>本次登陆IP：</span></td><td style="text-align: left;"><%= current_ip = current_user.current_sign_in_ip %>（<%= geolocation(current_ip) %>）</td>
+		</tr>
+		<tr>
+		  <td style="text-align: right;"><span>上次登陆：</span></td><td style="text-align: left;"><%= _l current_user.last_sign_in_at %></td>
+		</tr>
+		<tr>
+		  <td style="text-align: right;"><span>上次登陆IP：</span></td><td style="text-align: left;"><%= last_ip = current_user.last_sign_in_ip %>（<%= geolocation(last_ip) %>）</td>
+		</tr>
+		<tr>
+		  <td style="text-align: right;"><span>界面语言：</span></td><td style="text-align: left;"><%= current_user.__locale %></td>
+		</tr>
+		<tr>
+		  <td style="text-align: right;"><span>开通应用：</span></td><td style="text-align: left;"><%= current_user.tasks.size %>个（<%= current_user.jobs.size %>个任务，<%= current_user.plans.size %>个计划）</td>
+		</tr>
+	      </table>
+	    </div>
+	  </div>
+	<% else -%>
+	  <div class="count">
+	    <a href="/news" title="查看公开的应用"><span class="ui-icon ui-icon-volume-on icon_span"></span><span><%= User.count %></span>位会员创建了<span><%= Task.count -%></span>个应用</a>
+	  </div>
+	<% end -%>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    
+    $("#user-info-wrapper").hover(
+    function() {
+      $(this).addClass("hover");
+      $('#user-detial').show();
+    },
+    function(){
+      $('#user-detial').hover(
+      function () {
+	$("#user-info-wrapper").addClass("hover");
+      },
+      function () {
+	$(this).hide();
+	$("#user-info-wrapper").removeClass("hover");
+      })
+    
+    });
+    
+  });
+</script>

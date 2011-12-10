@@ -1,0 +1,21 @@
+<table border="1">
+  <tr>
+    <th><%=t(".index")%></th>
+    <th><%=t(".username")%></th>
+    <th><%=t(".email")%></th>
+    <th><%=t(".manage")%></th>
+  </tr>
+
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.username %></td>
+      <td><%= user.email %></td>
+      <td><%= link_to t('buttons.show'), user %> | <%= link_to t('buttons.edit'), edit_user_registration_path %> | <%= link_to t('buttons.destroy'), user, :confirm => t('alert.confirm'), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+
+<%= link_to t('buttons.create'), new_account_path %>

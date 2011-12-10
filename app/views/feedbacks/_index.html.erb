@@ -1,0 +1,11 @@
+<div id="feedback_list">
+  <%= render :partial => "/feedbacks/show", :collection => @feedbacks, :as => :feedback %>
+  <% if @feedbacks.blank? -%>
+    <br />
+    <span style="color: #9f9e9e;"><%=t(".nothing")%></span> <span class="ui-icon-green ui-icon-plusthick icon_span"></span><%= link_to t(".doit"), new_feedback_path %>
+    <br />
+    <br />
+  <% end -%>
+</div>
+
+<%= paginate(@feedbacks, :remote => true) %>

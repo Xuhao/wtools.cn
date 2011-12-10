@@ -1,0 +1,12 @@
+---
+zh-CN:
+  activerecord:
+    attributes:
+      user_log:
+        content: "内容"
+        log_type: "类型"
+        gold_count: "获得积分"
+        query_string: "查询字符串"
+        created_at: "日期"
+    models:
+      user_log: UserLog

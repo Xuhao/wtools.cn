@@ -1,0 +1,10 @@
+<div id="new_apps" class="four-corner-all">
+  <div class="title">
+    <div class="float-l"><span class="ui-icon-red ui-icon-triangle-1-s icon_span"></span>最新应用</div>
+    <div class="float-r desc">一共<span><%= Task.count(:conditions => "open = 1") -%></span>个应用被公开</div>
+    <div class="clear"></div>
+  </div>
+  <div id="rencent_apps_list">
+    <%= render 'news' %>
+  </div>
+</div>

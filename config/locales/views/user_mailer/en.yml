@@ -1,0 +1,4 @@
+en:
+  user_mailer:
+    delay_remind:
+      subject: "%{human}延迟提醒：%{task_name}已经延迟了%{delay_percent}%!"

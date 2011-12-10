@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+    <title><%=t("site.title")%></title>
+    <%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/ui-darkness/jquery-ui.css?#{timestamp}" %>
+    <%= stylesheet_link_tag 'dev' %>
+    <%= stylesheet_link_tag 'farbtastic' %>
+    <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js?#{timestamp}" %>
+    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js?#{timestamp}" %>
+    <%= javascript_include_tag "/xheditor/xheditor-#{I18n.locale.downcase}.min.js" %>
+    <%= javascript_include_tag :all %>
+    <%= csrf_meta_tag %>
+    <%= yield :head -%>
+    <%= yield :style -%>
+    <%= yield :script -%>
+    <script type="text/javascript">
+      $(document).ready(function() {
+<% unless flash.blank? -%>
+      $("#flash").fadeOut(5000);
+<% end -%>
+    //左侧菜单链接点击样式
+    $('#tree a').each(function() {
+      if (window.location.pathname == $(this).attr('href'))
+	$(this).parent().css('background-color', '#9f9e9e');
+    });
+  });
+    </script>
+  </head>
+  <body>
+    <%= render :partial => '/layouts/header' %>
+    <div id="body">
+      <div id="app_tree" class="ui-corner-all">
+	<div id="tree" class="ui-corner-all">
+	  <div class="tree_title">
+	    <span onclick="$('#app_center').slideToggle();"><%= image_tag 'app_center.png' %><%=t(".my_application")%></span>
+	    <a href="/site/app_center"><span class="ui-icon-red ui-icon-plusthick add_icon"></span><%=t(".manage")%></a>
+	  </div>
+	  <ul id="app_center">
+	    <% if current_user.app_codes.to_s.include?('plan') or !current_user.plans.empty? -%>
+	      <% unless current_user.plans.empty? # 如果已经有了计划，就显示计划列表，如果没有就显示计划介绍    -%>
+		<li>
+		  <%= image_tag 'plan.png' %><%= link_to t(".make_plan"), plans_path %>
+		  <a href="/plans/new"><span class="ui-icon-gray ui-icon-plusthick add_icon"></span>创建</a>
+		</li>
+	      <% else -%>
+		<li>
+		  <%= image_tag 'plan.png' %><%= link_to t(".make_plan"), plan_new_path(:step => 'intr') %>
+		  <a href="/plans/new"><span class="ui-icon-gray ui-icon-plusthick add_icon"></span>创建</a>
+		</li>
+	      <% end -%>
+	    <% end -%>
+	    <% if current_user.app_codes.to_s.include?('job') or !current_user.jobs.empty? -%>
+	      <% unless current_user.jobs.empty? # 如果已经有了任务，就显示任务列表，如果没有就显示任务介绍    -%>
+		<li>
+		  <%= link_to raw("#{image_tag 'job.png'}#{t('.make_job')}"), jobs_path %>
+		  <a href="/jobs/new"><span class="ui-icon-gray ui-icon-plusthick add_icon"></span>创建</a>
+		</li>
+	      <% else -%>
+		<li>
+		  <%= link_to raw("#{image_tag 'job.png'}#{t('.make_job')}"), job_new_path(:step => 'intr') %>
+		  <a href="/jobs/new"><span class="ui-icon-gray ui-icon-plusthick add_icon"></span>创建</a>
+		</li>
+	      <% end -%>
+	    <% end -%>
+	  </ul>
+	  <div class="tree_title" onclick="$('#info_center').slideToggle();"><%= image_tag 'user_info.png' %><%=t(".info_center")%></div>
+	  <ul id="info_center">
+	    <li><%= link_to raw("#{image_tag 'style.png'}#{t('.my_styles')}"), styles_path %></li>
+	    <!--<li><%#= link_to raw("#{image_tag 'website.png'}#{t('.my_websites')}"), websites_path %></li>-->
+	  </ul>
+	  <div class="tree_title" onclick="$('#help_center').slideToggle();"><%= image_tag 'help_center.png' %><%=t(".helper_center")%></div>
+	  <ul id="help_center">
+	    <li>
+	      <%= link_to raw("#{image_tag 'answer.png'}#{t('.answer')}"), questions_path %>
+	      <% if admin? -%>
+		<a href="/questions/new"><span class="ui-icon-gray ui-icon-plusthick add_icon"></span><%=t(".add")%></a>
+	      <% end -%>
+	    </li>
+	    <li>
+	      <%= link_to raw("#{image_tag 'feedback.png'}#{t('.feedback')}"), feedbacks_path %>
+	      <a href="/feedbacks/new"><span class="ui-icon-gray ui-icon-plusthick add_icon"></span><%=t(".create")%></a>
+	    </li>
+	    <% if admin? -%>
+	      <li>
+		<%= link_to raw("#{image_tag 'message.png'}系统消息"), messages_path %>
+		<a href="/messages/new"><span class="ui-icon-gray ui-icon-plusthick add_icon"></span><%=t(".add")%></a>
+	      </li>
+	    <% end -%>
+	  </ul>
+	</div>
+      </div>
+      <div id="workshop" class="ui-corner-all workshop-content">
+	<% unless user_center? -%>
+	  <div class="workshop-title ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
+	    <span class="ui-icon ui-icon-circle-triangle-w icon_span"></span><%= @title || t('.update_info')%>
+	    <% if render_search? -%>
+	      <div class="search_from">
+		<%= form_tag('/utilities/search', :remote => true, :method => :post, :id => "common_search_form") do %>
+		  <%= text_field_tag :keyword, t('search.keyword'), :class => 'search-keyword', :onclick => "$(this).val('');" %>
+		  <%= hidden_field_tag :klass, params[:type] || controller_name %>
+		  <%= image_submit_tag "search_b.png", :class => 'search-button' %>
+		<% end -%>
+	      </div>
+	    <% end -%>
+	  </div>
+	<% end -%>
+	<div id="workshop_body"><%= yield %></div>
+      </div>
+    </div>
+    <%= render :partial => '/layouts/footer' %>
+  </body>
+</html>

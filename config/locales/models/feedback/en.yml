@@ -1,0 +1,13 @@
+--- 
+en: 
+  activerecord: 
+    attributes: 
+      feedback: 
+        against_num: "Against Num"
+        agree_num: "Agree Num"
+        content: Content
+        title: Title
+        type: Type
+        user_id: User
+    models: 
+      feedback: Feedback

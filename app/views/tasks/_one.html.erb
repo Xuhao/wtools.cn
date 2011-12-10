@@ -1,0 +1,36 @@
+<h1>
+  <%= "#{t('tasks.new.h1', :task_type => @task.class.model_name.human)}" %>
+  <a href="javascript:void(0);" id="dialog_link" class="tip_trigger">(?)
+    <span class="tip" style="display: none; top: 147px; left: 474px; ">点击查看说明</span>
+  </a>
+</h1>
+<%= render 'form' %>
+<div id="dialog" title="什么是<%= @task.class.model_name.human %>?">
+  <p><%= raw(t "site.index.introduction.#{@task.type.downcase}.description") %></p>
+</div>
+<% content_for :script do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      Common.executeTooltips();
+    });
+
+    $(function(){
+      // Dialog
+      $('#dialog').dialog({
+	autoOpen: false,
+	width: 600,
+	buttons: {
+	  "Ok": function() {
+	    $(this).dialog("close");
+	  }
+	}
+      });
+
+      // Dialog Link
+      $('#dialog_link').click(function(){
+	$('#dialog').dialog('open');
+	return false;
+      });
+    });
+  </script>
+<% end -%>

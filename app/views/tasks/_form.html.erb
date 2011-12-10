@@ -1,0 +1,150 @@
+<%= form_for @task, :as => @task.type.downcase.to_sym do |form| %>
+  <%= form.error_messages %>
+  <div>
+    <div>
+      <%= form.label :name %>
+      <%= form.text_field :name %><span class="require">*</span>
+      <br /><br />
+      <%= form.label :description %>
+      <%= form.text_field :description %>
+      <br /><br />
+      <%= form.label :begin_at %>
+      <%= form.text_field :begin_at %><span class="require">*</span>
+      <br /><br />
+      <% if @task_type == 'plan' -%>
+	<%= form.label :time_type %>
+	<%= form.select :time_type, %w(day week month quarter year).map {|x| [t("words.#{x}"),x]}, { :include_blank => true }%><span class="require">*</span>
+	<%= form.hidden_field :time_num %>
+      <% else -%>
+	<%= form.label :time_num %>
+	<%= form.text_field :time_num, :style => 'width: 100px;' %>
+	<%= form.select :time_type, %w(day week month quarter year).map {|x| [t("words.#{x}"),x]}, { :include_blank => true }%><span class="require">*</span>
+      <% end -%>
+      <br /><br />
+      <%= form.label :aspire_word %>
+      <%= form.text_field :aspire_word %>
+    </div>
+    <div>
+      <% if @task_type == 'plan' -%>
+	<% task_logs = (params[:task_logs] || @task.task_logs) -%>
+	<!--如果是plan，用户填写to do list-->
+	<fieldset id="plan_logs_form">
+	  <legend><%=t(".set_to_do_list")%>【共 <span class="plan_time_num_word">0</span> <span class="plan_time_type_word">天</span>】</legend>
+	  <input id="log_flag" type="hidden" value="<%= task_logs.try(:size) || "0" %>" />
+	  <input type="button" value="<%=t("buttons.add")%> 1 <%= t("words.#{@task.try(:time_type) || 'day'}") %>" id="add_one" />
+	  <input type="button" value="<%=t("buttons.add")%> 5 <%= t("words.#{@task.try(:time_type) || 'day'}") %>" id="add_five" />
+	  <%- if task_logs # 当验证失败，重新渲染页面时，还能继续显示之前添加的log %>
+	    <% task_logs.each_with_index do |log, index| -%>
+	      <div><span class="time_type_flag"><%= t 'words.the' %><%= index + 1 %><span class="plan_time_type_word"><%= t"words.#{@task.try(:time_type)}" %></span>准备做：</span><input type="text" name="task_logs[][content]" id="task_log__name" value="<%= log['content'] %>" /><input type="button" value="<%=t(%!buttons.delete!)%>" onclick="Task.delButtonHandle();" /></div>
+	    <% end -%>
+	  <% end -%>
+	</fieldset>
+      <% end -%>
+    </div>
+    <br />
+    <div>
+      <fieldset style="background-color: #F7F7F7;">
+	<legend><%=t(".advanced_setting")%></legend>
+	<br />
+	<%= form.check_box(:open, {}, 1, 0) %>
+	<%= form.label :open %>
+	<br /><br />
+	<% if @task_type == 'job' %>
+	  <%= form.check_box(:log_able, {}, 1, 0) %>
+	  <%= form.label :log_able %>
+	  <br /><br />
+	<% end %>
+	<% if @task_type == 'plan' -%>
+	  <%= form.check_box(:email_notice, {}, 1, 0) %>
+	  <%= form.label :email_notice %>
+	  <br /><br />
+	<% end -%>
+	<!--
+  <%#= form.check_box(:show_control, {}, 1, 0) %>
+  <%#= form.label :show_control %>
+	    <br /><br />
+  <%#= form.hidden_field(:show_site) %>
+	    <div id="show_site">
+  <%#=t(".show_site_msg")%> <span class="ui-icon-green ui-icon-plusthick icon_span"></span><%#= link_to "添加新站点", new_website_path %><br />
+	      <ol id="my_sites">
+  <%# current_user.websites.select('url').each do |site| -%>
+		    <li class="ui-widget-content"><%#= site.url %></li>
+  <%# end -%>
+	      </ol>
+	      <br />
+	    </div>
+	  -->
+	<%= form.check_box(:email_alert, {}, 1, 0) %>
+	<%= form.label :email_alert %>
+	<br /><br />
+	<%= form.hidden_field(:delay_for_alert) %>
+	<div id="delay_for_alert" style="<%= @task.sms_alert && @task.email_alert ? "" : "display:none;" %> padding-left: 20px;">
+	  <%= slide_select_for "#{@task_type}_delay_for_alert", form.object.new_record? ? 0 : form.object.delay_for_alert,{:style => "margin-bottom: 5px; "} %>
+	  <%=t(".delay")%> <span class="percent_warn" id="<%= @task_type %>_delay_for_alert_message"><%= "#{form.object.delay_for_alert.to_i}%" -%></span> <%=t(".delay2")%>（延迟百分比 = 应完成百分比 - 已完成百分比，如按计划你应该完成50%，而实际只完成了30%，就延迟了20%）
+	</div>
+      </fieldset>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <br />
+  <%= form.submit %>
+<% end %>
+<% content_for :script do %>
+  <script type="text/javascript">
+    $(function() {
+      //编辑页面，将已存在站点自动选中
+      var selected = [<%= @task.show_site.to_s.split(",").map{|x| "'#{x}'"} * ',' %>];
+      $.each(selected,function(n,value) {
+	var option = $("li:contains('" + value + "')");
+	option.removeClass("ui-selected");
+	option.addClass("ui-selected");
+      });
+      //可展示网站列表
+      $( "#my_sites" ).selectable({
+	stop: function() {
+	  var value = '';
+	  $( ".ui-selected", this ).each(function() {
+	    if(value != '') {value += ',';}
+	    value += $( this ).html();
+	  });
+	  $( '#<%= @task_type %>_show_site' ).val(value);
+	}
+      });
+      $( "#<%= @task_type %>_begin_at" ).datepicker();
+      $("#<%= @task_type %>_show_control").click(function() { $("#show_site").slideToggle(); });
+      $("#<%= @task_type %>_sms_alert").change(function() { toggle_delay_for_alert(); });
+      $("#<%= @task_type %>_email_alert").change(function() { toggle_delay_for_alert(); });
+
+      function toggle_delay_for_alert(){
+	if(($("#<%= @task_type %>_sms_alert").is(':checked') || $("#<%= @task_type %>_email_alert").is(':checked')) && $("#delay_for_alert").css("display")  == 'none'){
+	  $("#delay_for_alert").slideDown();
+	} else if(!$("#<%= @task_type %>_sms_alert").is(':checked') && !$("#<%= @task_type %>_email_alert").is(':checked') && $("#delay_for_alert").css("display")  == 'block') {
+	  $("#delay_for_alert").slideUp();
+	}
+      }
+
+      //增加日志按钮动作
+      $('#add_one').live('click', function() {
+	Task.addLog(1);
+      })
+      $('#add_five').live('click', function() {
+	Task.addLog(5);
+      })
+
+      // 改变时间类型时，改变日志里的时间类型
+      $( '#<%= @task_type %>_time_type' ).change(function(){
+	var current_time_type = $("select option:selected").text();
+	if (current_time_type != '') {
+	  $('#add_one').val('增加 1 ' +  current_time_type);
+	  $('#add_five').val('增加 5 ' +  current_time_type);
+	  if ($('.plan_time_type_word').size() > 0) {
+	    $('.plan_time_type_word').each(function(){
+	      $(this).html(current_time_type);
+	    })
+	  }
+	}
+      })
+
+    })
+  </script>
+<% end -%>

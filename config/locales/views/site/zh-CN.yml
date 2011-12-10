@@ -1,0 +1,52 @@
+'zh-CN':
+  site:
+    index:
+      tip: "%{username}: %{time}前%{content}"
+      introduction:
+        job:
+          name: "任务"
+          description: "<p>任务是一件你只知道结果和大概消耗时间的事。目标很明确，但当前还不清楚每步应该做什么。</p><p>通过为一件事情创建一个任务，你不仅可以动态跟踪事件进展，而且还有进展延迟提醒功能，能帮助你提高执行效率。</p>"
+        plan:
+          name: "计划"
+          description: "<p>计划是一件你知道每步该做什么的事。整个执行过程很明确，先制作一个流程，然后照这个流程执行。</p><p>通过为一件事情创建一个计划，你不仅可以清晰的控制整个事件的进展，进展延迟提醒功能能帮助你提高执行效率。</p>"
+        remind:
+          name: "提醒"
+          description: "提醒功能介绍"
+        signature:
+          name: "签名"
+          description: "签名功能介绍"
+        comm_desc: '<p>将进度展示放到你的BLOG/论坛签名中，你可以随时随地跟踪。</p>'
+      button:
+        login: "会员登录"
+        register: "新会员注册"
+
+    task_log_table:
+      time: "时间元"
+      process: "进度"
+      log: "日志"
+      evaluation: "自我评价"
+      completed_precent: "已完成进度："
+      in: "其中"
+    task_tr:
+      new_task_message: '任务刚刚开始,还没有任何进度.' 
+      completed: "已完成"
+      should_complete: "应完成"
+
+      details: "详细信息" 
+      cannot_find: "没有找到任何日志！可能是因为你没有开启日志记录，或你还未记录任何日志。"
+
+    app_center:
+      make_a_plan: "计划定制"
+      installed: "已经安装"
+      uninstall: "卸载应用"
+      install: "安装应用"
+      make_a_job: "任务跟踪"
+
+    gold_center:
+      details: "积分状况"
+      expense: "积分消费"
+      top: "积分排行"
+
+    task_show:
+      title: "%{username}的任务"
+

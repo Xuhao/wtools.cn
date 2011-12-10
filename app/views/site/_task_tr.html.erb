@@ -1,0 +1,56 @@
+<% at_begin = (task.ratio == task.should_completed_ratio) -%>
+<tr>
+  <% if task._style.name_display #显示名称 -%>
+    <td class="name_td">
+      <div id="name"><%= task.name -%></div>
+    </td>
+  <% end -%>
+  <td<%= raw(colspan(task._style)) %>>
+    <!--整个进度条-->
+    <div id="whole_<%= task.id %>" class="whole corner" style="background-color: <%= task._style.whole_bgcolor %>; height: <%= task._style.bar_height || '20' %>px; line-height: <%= task._style.bar_height || '20' %>px;">
+      <div id="whole_percent_<%= task.id %>" class="whole_percent percent" style="color: <%= Utils.inverse_color(task._style.whole_bgcolor) %>"><%= whole_word_type(task) %></div>
+      <!--已完成进度条-->
+      <div id="completed_<%= task.id %>" class="completed corner" style="background-color: <%= task._style.completed_bgcolor %>; border: 1px solid <%= task._style.completed_bgcolor %>; width: <%= completed_ratio = percentize(task.ratio) %>; height: <%= task._style.bar_height - 2 || '18' %>px; line-height: <%= task._style.bar_height - 2 || '18' %>px;" title="<%= at_begin ? t('.new_task_message') : '' %>" onmouseover="$(this).css('border-color','<%= task._style.border_color || '#666666' %>');" onmouseout="$(this).css('border-color','<%= task._style.completed_bgcolor %>');">
+	<div id="completed_percent_<%= task.id %>" class="completed_percent percent" style="color: <%= Utils.inverse_color(task._style.completed_bgcolor) %>"><%= completed_word_type(task) %></div>
+      </div>
+      <% unless at_begin -%>
+	<!--应完成进度条-->
+	<div id="should_completed_<%= task.id %>" class="should_completed corner" style="background-color: <%= task._style.should_completed_bgcolor %>; border: 1px solid <%= task._style.should_completed_bgcolor %>; width: <%= should_completed_ratio = percentize(task.should_completed_ratio) %>; height: <%= task._style.bar_height - 2 || '18' %>px; line-height: <%= task._style.bar_height - 2 || '18' %>px;" title="<%=t(".should_complete")%><%= should_completed_ratio %>" onmouseover="$(this).css('border-color','<%= task._style.border_color || '#666666' %>');$('#completed_<%= task.id %>').hide();" onmouseout="$(this).css('border-color','<%= task._style.should_completed_bgcolor %>');$('#completed_<%= task.id %>').show();">
+	  <div id="should_completed_percent_<%= task.id %>" class="should_completed_percent percent" style="color: <%= Utils.inverse_color(task._style.should_completed_bgcolor) %>"><%= should_completed_word_type(task) %></div>
+	</div>
+      <% end -%>
+    </div>
+  </td>
+  <% if task._style.detail_display #详细信息按钮 -%>
+    <td class="detail_td">
+      <% if task.log_able -%>
+	<img src="/images/detail1.png" alt="<%=t(".details")%>" onclick="$('#detail_table_<%= task.id %>').toggle();" />
+      <% end -%>
+    </td>
+  <% end -%>
+</tr>
+<% if task.log_able and task._style.detail_display # 显示详细信息 -%>
+  <tr id="detail_table_<%= task.id %>" style="display: none;">
+    <% if task.task_logs.empty? -%>
+      <%= raw(name_display(task._style)) -%>
+      <td><%=t(".cannot_find")%></td><%= raw(detail_display(task._style)) -%>
+    <% else -%>
+      <% c_num = 0 #计算详细信息展示的列   -%>
+      <%= raw(name_display(task._style)) %>
+      <td<%= raw(colspan(task._style)) %>>
+	<!--详细信息表格-->
+	<%= render :partial => '/site/task_log_table', :locals => { :task => task, :c_num => c_num } %>
+      </td>
+      <%= raw(detail_display(task._style)) %>
+    <% end -%>
+  </tr>
+<% end -%>
+<% unless task_index == (tasks_size - 1) #如果是最后一个task,就不显示分隔区域 -%>
+  <tr>
+    <td colspan="3">
+      <div style="height: 2px;"></div>
+    </td>
+  </tr>
+<% end -%>
+
+<% content_for :head, stylesheet_link_tag('graph') %>

@@ -1,0 +1,136 @@
+<div class="tabs_header">
+  <div class="float-r">
+    <a href="javascript:void(0);" onclick="$('.task_show_div').each(function(){$(this).toggle();})"><%=t(".display_others")%></a>
+  </div>
+  <ul class="tabs">
+    <li id="task_basic_info_li" class="active" onclick="Task.changeTab('#task_basic_info')"><a href="javascript:void(0);"><span><%=t(".details")%></span></a></li>
+    <% if @task.log_able -%>
+      <li id="task_logs_li" onclick="Task.changeTab('#task_logs')"><a href="javascript:void(0);"><span><%=t(".write_a_log")%></span></a></li>
+    <% end -%>
+    <li id="task_preview_li" onclick="Task.changeTab('#task_preview')"><a href="javascript:void(0);"><span><%=t(".task_preview")%></span></a></li>
+    <li id="task_get_code_li" onclick="Task.changeTab('#task_get_code')"><a href="javascript:void(0);"><span><%=t(".get_code")%></span></a></li>
+    <li id="task_chart_li" onclick="Task.changeTab('#task_chart')"><a href="javascript:void(0);"><span><%=t(".chart")%></span></a></li>
+    <li id="all_li" onclick="Task.changeTab('#all')"><a href="javascript:void(0);"><span><%=t(".show_all")%></span></a></li>
+  </ul>
+</div>
+<!-- 基本信息 -->
+<div id="task_basic_info" class="task_show_div">
+  <div class="task_show_title">
+    <b class="float-l task_show_title_b"><%=t(".task_details", name: @task.name)%></b>
+    <span class="float-r">
+      <span class="ui-icon-green ui-icon-pencil icon_span"></span><%= link_to t("buttons.edit"), __send__("edit_#{@task.type.downcase}_url",@task) %>
+      <span class="ui-icon-green ui-icon-trash icon_span"></span><%= link_to t("buttons.delete"), @task, :confirm => t("alert.confirm"), :method => :delete %>
+    </span>
+    <div style="clear: both;"></div>
+  </div>
+  <div>
+    <table class="task_info_table" cellpadding="0" cellspacing="0">
+      <tr>
+	<td style="width: 22%"><%= Task.human_attribute_name("from_to") %></td><td style="width: 35%"><%= @task.begin_at %> ~ <%= @task.end_at %></td>
+	<td style="width: 22%"><%= Task.human_attribute_name("time_num") %></td><td><%= @task.duration %></td>
+      </tr>
+      <tr>
+	<td><%= Task.human_attribute_name("completed_ratio") %></td><td><%= percentize(@task.ratio) %></td>
+	<td><%= Task.human_attribute_name("should_completed_ratio") %></td><td><%= percentize(@task.should_completed_ratio) %></td>
+      </tr>
+      <tr>
+	<td><%= Task.human_attribute_name("sms_alert") %></td><td><%= t("words.#{@task.sms_alert}") %></td>
+	<td><%= Task.human_attribute_name("email_alert") %></td><td><%= t("words.#{@task.email_alert}") %></td>
+      </tr>
+      <tr>
+	<td><%= Task.human_attribute_name("delay_for_alert") %></td><td><%= percentize(@task.delay_for_alert) %></td>
+	<td><%= Task.human_attribute_name("last_show_at") %></td><td><%= @task.last_show_at.try(:to_s,:db) || '从未被浏览过' %></td>
+      </tr>
+      <tr>
+	<td><%= Task.human_attribute_name("style_id") %></td><td><%= link_to (@task.style ? @task.style_name : '现在去关联一个样式'), @task.style || "/#{@task.type.tableize}/new/two/#{@task.id}" %></td>
+	<td><%= Task.human_attribute_name("status") %></td><td><%= raw(color_task_status(@task)) %></td>
+      </tr>
+    </table>
+  </div>
+  <div style="clear: both;"></div>
+</div>
+
+<% if @task.log_able -%>
+  <!-- 写任务日志 -->
+  <div id="task_logs" class="task_show_div" style="display: none;">
+    <div class="task_show_title">
+      <b class="float-l task_show_title_b"><%=t(".create_a_log")%></b>
+      <div style="clear: both;"></div>
+    </div>
+    <%= render :partial => '/task_logs/list', :locals => { :task => @task } %>
+  </div>
+<% end -%>
+
+<!-- 效果展示 -->
+<div id="task_preview" class="task_show_div" style="display: none;">
+  <div class="task_show_title">
+    <b class="float-l task_show_title_b"><%=t(".task_show")%></b>
+    <span class="float-r">
+      <span class="ui-icon-green ui-icon-pencil icon_span"></span><%= link_to t('.edit_style'), "/#{@task.type.tableize}/new/two/#{@task.id}" %>
+    </span>
+    <div style="clear: both;"></div>
+  </div>
+  <table style="width: 98%;">
+    <%= render :partial => '/site/task_tr', :locals => { :task => @task, :tasks_size => 1, :task_index => 1 } %>
+  </table>
+</div>
+<!-- 引用代码 -->
+<div id="task_get_code" class="task_show_div" style="display: none;">
+  <div class="task_show_title">
+    <b class="float-l task_show_title_b"><%=t(".invoke_code")%></b>
+    <div style="clear: both;"></div>
+  </div>
+  <div class="get_code_area">
+    <p><%=t(".web_attr")%><%= link_to url = "#{full_host}#{show_path(@task)}", url, :target => '_blank' -%></p>
+    <p><%=t(".picture_attr")%><%= link_to img_path = "#{full_host}#{show_path(@task)}.png", img_path, :target => '_blank' -%></p>
+    <h4 class="get_code"><%=t(".get_code_msg")%></h4>
+    <textarea><iframe name="wtools" src="<%= full_host %><%= show_path(@task) %>" width="100%" height="100%" style="float:left;" frameborder="0" scrolling="auto" marginheight="0" marginwidth="0"></iframe></textarea>
+    <button style="vertical-align: top" onclick="if(window.clipboardData){window.clipboardData.clearData();window.clipboardData.setData('Text',$('textarea').text());alert('<%=t("alert.copy_to_clipboard")%>');}">
+      <%=t(".copy")%>
+    </button>
+  </div>
+</div>
+
+<!--执行效率分析图-->
+<div id="task_chart" class="task_show_div" style="display: none;">
+  <div class="task_show_title">
+    <b class="float-l task_show_title_b"><%=t(".analy_graph")%></b>
+    <a class="float-l chart_type_link" href="javascript:void(0);" onclick="Form.cycle('#line_chart_img','#pie_chart_img')"><%= image_tag 'chart_line.png', :class => 'chart_img' %><%=t(".line_chart")%></a>
+    <a class="float-l chart_type_link" href="javascript:void(0);" onclick="Form.cycle('#pie_chart_img','#line_chart_img')"><%= image_tag 'chart_pie.png', :class => 'chart_img' %><%=t(".pie_chart")%></a>
+    <div style="clear: both;"></div>
+  </div>
+  <div>
+    <br />
+    <span id="line_chart_img">
+      <%= image_tag task_chart_path(:id => @task, :type => 'line', :format => 'png') %><br /><br />
+      图片地址：<input type="text" value="<%= full_host %><%= task_chart_path(:id => @task, :type => 'line', :format => 'png') %>" readonly="readonly" onmouseover="$(this).select();" />
+    </span>
+    <span id="pie_chart_img" style="display: none;">
+      <%= image_tag task_chart_path(:id => @task, :type => 'pie', :format => 'png') %><br /><br />
+      图片地址：<input type="text" value="<%= full_host %><%= task_chart_path(:id => @task, :type => 'pie', :format => 'png') %>" readonly="readonly" onmouseover="$(this).select();" />
+    </span>
+  </div>
+</div>
+<div style="clear: both;"></div>
+<% if @task.log_able -%>
+  <% content_for :style do -%>
+    <!--写日志表格要用的样式-->
+    <style type="text/css">
+      .once-whole {position: relative; width: 100%; background-color: #B1D632 }
+      .once-whole { padding: 1px }
+      .once-before-percent {display: inline-block; height: 16px; width: 90%; line-height: 16px; margin: 4px 0;}
+      .once-current-percent {background-color: #6d9e27; text-align: right; display: inline-block; }
+      .log-ratio-slider .ui-slider-range { background: limegreen; }
+      .log-ratio-slider .ui-slider-handle { border-color: #8ae234; }
+    </style>
+  <% end -%>
+<% end -%>
+<% unless params[:flag].blank? -%>
+  <% content_for :script do -%>
+    <script type="text/javascript">
+      $(document).ready(function() {
+	Task.changeTab('#<%= params[:flag] %>');
+      });
+    </script>
+  <% end -%>
+<% end -%>

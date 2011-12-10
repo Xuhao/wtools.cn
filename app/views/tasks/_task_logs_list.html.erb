@@ -1,0 +1,42 @@
+<% if @task.attributes["type"] == 'Plan' %>
+  <table class="pb_detail" >
+    <thead>
+      <tr>
+        <td><%= TaskLog.human_attribute_name("time_stamp")%></td>
+        <td><%= TaskLog.human_attribute_name("content")%></td>
+        <td><%= TaskLog.human_attribute_name("evaluation")%></td>
+        <td><%= t('words.actions') %></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @task_logs.each_with_index do |t,index| %>
+        <% task_number = index + 1 + (params[:page].blank? ? 0 : (params[:page].to_i - 1) * @task_logs.per_page.to_i ) %>
+        <tr class="<%= cycle('odd', 'even') %>">
+          <td><%= t('.the',:number => task_number) %><%= t("words.#{@task.time_type}") %></td>
+          <td><%= t.content %></td>
+          <td><%= t.evaluation %></td>
+          <td><%= link_to "#{t("buttons.edit")}",edit_task_log_url(t,:task_id => @task.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% elsif @task.attributes["type"] == 'Job'  %>
+  <table class="pb_detail" >
+    <thead>
+      <tr>
+        <td><%= TaskLog.human_attribute_name("ratio")%></td>
+        <td><%= TaskLog.human_attribute_name("content")%></td>
+        <td><%= t('words.actions') %></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @task_logs.each do |t| %>
+        <tr class="<%= cycle('odd', 'even') %>">
+          <td><%= "#{t.ratio}%"  %></td>
+          <td><%= t.content %></td>
+          <td><%= link_to "#{t("buttons.edit")}",edit_task_log_url(t,:task_id => @task.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

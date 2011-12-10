@@ -1,0 +1,6 @@
+<%= form_for(@reply) do |f| %>
+  <%= f.error_messages %>
+  <%= f.text_area :content, :class => "xheditor-simple {skin:'nostyle'}", :style => 'height: 150px;' %>
+  <br />
+  <%= f.submit %>
+<% end %>

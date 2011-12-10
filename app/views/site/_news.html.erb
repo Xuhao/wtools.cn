@@ -1,0 +1,23 @@
+<ul class="app_list">
+  <% show_task_ids = @tasks[-6,6].map(&:id) if for_index? -%>
+  <% @tasks.each do |task| -%>
+    <li<%= raw(%~ style="display: none;"~) if (for_index? and !show_task_ids.include?(task.id) ) %>>
+      <a href="<%= for_index? ? '/news' : show_path(task) %>" target="_blank" title="点击查看">
+	<div class="float-l user-avatar">
+	  <%= image_tag task.user._avatar %>
+	</div>
+	<div class="float-l task-bar">
+	  <%= distance_of_time_in_words(task.created_at, Time.now, true) %>前：<span class="username"><%= task.user.username %></span>创建<%= task.class.model_name.human %><span class="task-name"><%= task.name %></span>
+	  <div class="hole"><div class="completed" style="width: <%= "#{task.ratio}%" %>"></div></div>
+	</div>
+	<div class="float-r task-num">
+	  <span class="ratio"><%= "#{task.ratio}%" %></span><br />
+	  <span class="duration">共<%= task.duration %></span>
+	</div>
+	<div class="clear"></div>
+      </a>
+    </li>
+  <% end -%>
+</ul>
+<%= paginate(@tasks, :remote => true) unless for_index? %>
+<% content_for(:head, javascript_include_tag('rails')) unless for_index? %>

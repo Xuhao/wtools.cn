@@ -1,0 +1,31 @@
+'zh-CN':
+  activerecord:
+    models:
+      style: "样式"
+    attributes:
+      style:
+        name: "名称"
+        name_display: "显示名称"
+        detail_display: "显示日志"
+        evaluation_display: "显示自我评价"
+        completed_display: "显示已完成进度"
+        completed_word_type: "已完成文字说明类型"
+        should_completed_display: "显示应完成进度"
+        should_completed_word_type: "应完成文字说明类型"
+        whole_word_type: "整个进度文字说明类型"
+        delay_display: "显示延迟进度"
+        delay_word_type: "延迟的文字说明类型"
+        done_only_display: "只显示已完成的日志"
+        log_display: "显示日志记录"
+        time_stamp_display: "显示时间标志"
+        once_ratio_display: "显示每次完成进度"
+        aspire_word_display: "显示立志语"
+        statistical_evaluation_display: "显示评价统计"
+        completed_bgcolor: "已完成进度条背景颜色"
+        should_completed_bgcolor: "应完成进度条背景颜色"
+        whole_bgcolor: "整个进度条背景颜色"
+        border_color: "进度条边框颜色"
+        bar_width: "宽度"
+        bar_height: "高度"
+        created_at: "创建时间"
+        updated_at: "更新时间"

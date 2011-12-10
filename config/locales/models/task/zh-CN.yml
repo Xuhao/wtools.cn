@@ -1,0 +1,28 @@
+'zh-CN':
+  activerecord:
+    models:
+      task: "计划任务"
+    attributes:
+      task:
+        name: "名称"
+        description: "描述"
+        category_id: "目录"
+        time_num: "时间量"
+        time_type: "时间单位"
+        begin_at: "开始日期"
+        end_at: "结束日期"
+        last_show_at: "最后被浏览时间"
+        log_able: "记录执行日志（选中将通过写日志更新任务进度，不选则自动更新进度）"
+        aspire_word: "励志语"
+        show_control: "只允许在指定的网站上显示"
+        show_site: "允许显示的网站"
+        sms_alert: "开启短信进度延期预警提醒"
+        email_alert: "开启邮件进度延期预警提醒"
+        completed_ratio: "已完成百分比"
+        should_completed_ratio: "应完成百分比"
+        delay_for_alert: "进度延期警戒线"
+        style_id: "样式"
+        from_to: "时间"
+        open: "设置为公开（在最新应用中展示）"
+        email_notice: "开启邮件提醒（按照计划的安排来提醒当前要做什么事）"
+        status: "状态"

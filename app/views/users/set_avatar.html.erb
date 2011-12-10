@@ -1,0 +1,28 @@
+<div class="tabs_header">
+  <ul class="tabs">
+    <li id="task_basic_info_li"><a href="/users/edit"><span>资料修改</span></a></li>
+    <li id="task_get_code_li" class="active"><a href="/users/set_avatar"><span>头像设置</span></a></li>
+  </ul>
+</div>
+<div class="task_show_div"><br />
+  <%= form_for(@user, :as => :user, :url => '/users/set_avatar', :html => {:method => :post, :multipart => true}) do |form| %>
+    <%= form.error_messages %>
+    <%= form.label :default_avatar,'默认头像：' %>
+    <div style="margin: 10px 0 20px 0; line-height: 30px;">
+      <div class="float-l" style="margin-right: 30px;">
+	<%= label_tag 'user_default_avatar_local',image_tag(current_user.avatar.url) %><br />
+	<%= form.radio_button(:default_avatar, "local") %><%= label_tag 'user_default_avatar_local', '上传的头像' %>
+      </div>
+      <div class="float-l">
+	<%= label_tag 'user_default_avatar_remote', image_tag(current_user.gravatar) %><br />
+	<%= form.radio_button(:default_avatar, "remote") %><%= label_tag 'user_default_avatar_remote', 'Gravatar' %>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <%= form.label :avatar,'上传头像：' %>
+    <%= form.file_field :avatar %><br />
+    <small>(格式要求：jpg/jpeg/png/gif，小于1M)</small><br /><br />
+    <%= form.submit %>
+  <% end %>
+  <br/>
+</div>

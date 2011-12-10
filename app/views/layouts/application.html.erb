@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+    <meta name="keywords" content="<%= @keywords %>"/>
+    <meta name="description" content="<%= @description %>"/>
+    <title><%=t("site.title")%></title>
+    <%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/ui-darkness/jquery-ui.css?#{timestamp}" %>
+    <%= stylesheet_link_tag 'dev' %>
+    <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js?#{timestamp}" %>
+    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js?#{timestamp}" %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'jquery.cookie' %>
+    <%= yield :head -%>
+    <%= yield :style -%>
+    <%= yield :script -%>
+    <%= csrf_meta_tag %>
+    <meta name="google-site-verification" content="11GqFG3tcBYbmLBx_S0RwrDHtA62MNv8Zbqs_LGRvb4" />
+    <!--[if lte IE 7]>
+    <script type="text/javascript">
+    alert('您的浏览器版本太低，本站可能不兼容您的浏览器，建议您使用Safari/Chrome/Firefox/IE8+访问本站，');
+    </script>
+    <![endif]-->
+    <% unless flash.blank? %>
+      <script type="text/javascript">
+	$(document).ready(function() {
+	  $("#flash").fadeOut(5000);
+	});
+      </script>
+    <% end -%>
+  </head>
+  <body>
+    <%= render :partial => '/layouts/header' %>
+    <div id="body">
+      <%= yield %>
+    </div>
+    <%= render :partial => '/layouts/footer' %>
+  </body>
+</html>

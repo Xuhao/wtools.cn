@@ -1,0 +1,31 @@
+<% if @task_log.task.attributes["type"] == 'Plan' %>
+  <%= form.label :content %>
+  <%= form.text_field(:content) %>
+  <br /><br />
+  <%= form.label :evaluation %>
+  <%= raw(form.radio_group(:evaluation,
+      [[t(".poor"),'1'],[t(".common"),'2'],[t(".good"),'3'],[t(".verygood"),'4']],
+      :radio_style => "padding: 0; margin: 0;", :label_style => "margin: 0 10px 0 0;")) -%>
+<% elsif @task_log.task.attributes["type"] == 'Job' %>
+  <%= form.label :done_at %>
+  <%= form.text_field :done_at,{:value => (@task_log.new_record? ? Date.today : @task_log.done_at)} %>
+  <br /><br />
+  <div style="margin-bottom:-5px;">
+    <div style="display:inline">
+      <%= form.label :ratio %>
+      <%= form.hidden_field :ratio %>( <span id="task_log_ratio_message" class="percent_warn"><%= "#{@task_log.ratio} %" %></span> )
+    </div>
+    <%= slide_select_for :task_log_ratio,@task_log.ratio,{:style => "margin-left:50px;" } %>
+  </div>
+  <br /><br />
+  <%= form.label :content %>
+  <%= form.text_field :content %>
+<% end %>
+<% content_for :script do %>
+  <script type="text/javascript">
+    $( "#task_log_done_at" ).datepicker({
+      minDate: new Date('<%= @task.begin_at %>'),
+      maxDate: new Date('<%= Date.today %>')
+    });
+  </script>
+<% end -%>

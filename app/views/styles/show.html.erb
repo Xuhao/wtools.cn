@@ -1,0 +1,23 @@
+<p>
+  <b><%=t(".user")%></b>
+  <%=h @style.user_id %>
+</p>
+
+<p>
+  <b><%=t(".name")%></b>
+  <%=h @style.name %>
+</p>
+
+<p>
+  <b><%=t(".name_display")%></b>
+  <%=h @style.name_display %>
+</p>
+
+<p>
+  <b><%=t(".detail_display")%></b>
+  <%=h @style.detail_display %>
+</p>
+
+
+<%= link_to t('buttons.edit'), edit_style_path(@style) %> |
+<%= link_to t('buttons.back'), styles_path %>

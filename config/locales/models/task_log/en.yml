@@ -1,0 +1,13 @@
+--- 
+en: 
+  activerecord: 
+    attributes: 
+      task_log: 
+        content: Content
+        done: Done
+        done_at: "Done At"
+        evaluation: Evaluation
+        ratio: Ratio
+        time_stamp: "Date Stamp"
+    models: 
+      task_log: Log

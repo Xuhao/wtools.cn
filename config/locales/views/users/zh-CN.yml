@@ -1,0 +1,61 @@
+zh-CN:
+  users:
+    new:
+      h1: "新用户注册"
+      submit: "注册"
+    edit:
+      info_edit_h1: "账号信息修改"
+      pwd_edit_h1: "密码修改"
+      locale_edit_h1: "选择语言"
+      submit: "更新"
+    sign_in_up:
+      h1: "会员登陆"
+      submit: "登录"
+      login_now: "立即登陆会员"
+      index: "编号"
+      username: "用户名"
+      email: "邮箱"
+      manage: "管理"
+      already_a_member: "已经是Wtools会员?"
+
+    show:
+      welcome: "欢迎您！%{name}"
+      total_sign_in_count1: "共"
+      total_sign_in_count2: "次登录，"
+      last_login: "上次登陆："
+      last_login_time: "上次登陆时间:"
+      before: "前（"
+      mail: "信息："
+      opened_app: "已开通的应用"
+      goto_appcenter: "去应用中心看看"
+      gold: "金币："
+      activity: "最近的活动"
+      no_activity_msg: "你好像还没有做任何操作哦？"
+      log_time_at: "发生在："
+      before: "前"
+      latest_created_app: "最近创建的应用"
+      create_at: "创建于"
+      before: "前"
+      no_any_app: "你还未创建任何应用哦！"
+      feedback: "意见反馈"
+      thanks_for_feedback: "非常感谢你给我们提出建议。"
+      what_people_talk_about: "看看大家都在说什么"
+      thanks_for_feedback2: "我们会认真查看并给你回复。"
+      find_my_suggestion: "看看我提交了那些意见?"
+      no_opened_app_msg: "你为开通任何应用."
+
+  devise:
+    shared:
+      links:
+        sign_in: '登陆'
+        sign_up: '注册'
+        forgot_your_password: '忘记你的密码了？'
+        receive_confirmation_instructions: '还有收到确认邮件？'
+        receive_unlock_instructions: '还没有收到解锁邮件？'
+    passwords:
+      reset_password_submit: '发送重置密码信息'
+      reset_password: '重置我的密码'
+    registrations:
+      cancel_my_account: '删除我的帐号'
+      unhappy: '在这里玩的不开心？'
+

@@ -1,0 +1,28 @@
+<div class="tabs_header">
+  <ul class="tabs">
+    <li id="task_basic_info_li" class="active"><a href="/users/edit"><span>资料修改</span></a></li>
+    <li id="task_get_code_li"><a href="/users/set_avatar"><span>头像设置</span></a></li>
+  </ul>
+</div>
+<div class="task_show_div"><br />
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put}) do |form| %>
+    <%= devise_error_messages! %>
+    <%= form.label :current_password %>
+    <%= form.password_field :current_password %><span class="require">*</span><i>(修改信息需提供当前密码)</i><br/><br/>
+    <%= form.label :password, "#{t('words.new') unless form.object.new_record?}#{User.human_attribute_name('password')}" %>
+    <%= form.password_field :password, :minlength => User::PASSWORD_MINIMUM %><span class="require">*</span><i>(若不修改，请留空)</i><br/><br/>
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation %><span class="require">*</span><br/><br/>
+    <%= form.label :username %>
+    <%= form.text_field :username %><span class="require">*</span><i>(不推荐修改用户名)</i><br /><br/>
+    <%= form.label :locale %>
+    <%= form.select :locale, [["简体中文", 'zh-CN'], ["English", 'en']],
+      :include_blank => true,
+      :selected => (form.object.new_record? ? cookies[:locale] || extract_locale_from_accept_language_header : form.object.locale) %>
+    <br /><br/>
+    <%= form.submit %>
+  <% end %>
+  <br/>
+  <h3 style="border-top: #1e90ff dotted 1px; padding-top: 5px; font-style: italic;"><%= t "devise.registrations.cancel_my_account" %></h3>
+  <%= t "devise.registrations.unhappy" %><%= link_to t("devise.registrations.cancel_my_account"), registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>
+</div>

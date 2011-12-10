@@ -1,0 +1,8 @@
+en:
+  navigation:
+    home: "Home"
+    login: "Login"
+    logout: "Logout"
+    register: "Register"
+    user_center: "User Center"
+    locale_chose: "Chose your language"

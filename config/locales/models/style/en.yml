@@ -1,0 +1,28 @@
+--- 
+en: 
+  activerecord: 
+    attributes: 
+      style: 
+        aspire_word_display: "Aspire word display"
+        bar_height: "Bar height"
+        bar_width: "Bar width"
+        border_color: "Border color"
+        completed_bgcolor: "Completed bgcolor"
+        completed_display: "Completed display"
+        completed_word_type: "Completed word type"
+        detail_display: "Detail display"
+        done_only_display: "Done only display"
+        evaluation_display: "Evaluation display"
+        log_display: "Log display"
+        name: Name
+        name_display: "Name display"
+        once_ratio_display: "Once ratio display"
+        should_completed_bgcolor: "Should completed bgcolor"
+        should_completed_display: "Should completed display"
+        should_completed_word_type: "Should completed word type"
+        statistical_evaluation_display: "Statistical evaluation display"
+        time_stamp_display: "Time stamp display"
+        whole_bgcolor: "Whole bgcolor"
+        whole_word_type: "Whole word type"
+    models: 
+      style: Style

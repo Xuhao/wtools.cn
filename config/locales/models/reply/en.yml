@@ -1,0 +1,8 @@
+--- 
+en: 
+  activerecord: 
+    attributes: 
+      reply: 
+        content: Content
+    models: 
+      reply: Reply

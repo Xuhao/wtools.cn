@@ -1,0 +1,12 @@
+en:
+  questions:
+    index:
+      h1: "Listing Question "
+      plan_question: "Plan"
+      job_question: "Job"
+    form:
+      plan_question: "Plan"
+      job_question: "Job"
+    show:
+      plan_question: "Plan"
+      job_question: "Job"

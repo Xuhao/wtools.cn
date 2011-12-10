@@ -1,0 +1,31 @@
+<table id="list_table" class="records_table">
+  <tr>
+    <th class="ui-corner-tl" style="width: 60%">标题</th>
+    <th style="width: 10%">类型</th>
+    <th style="width: 20%">时间</th>
+    <th class="ui-corner-tr" style="width: 10%">状态</th>
+  </tr>
+
+  <% @messages.each do |message| -%>
+    <tr id="tr_<%= message.id %>" class="<%= cycle('even', 'odd') %>">
+      <td><a href="javascript:void(0);" onclick="$('#<%= message.id %>_content').toggle();<%= %~$.post('#{read_message_path(message)}');~ unless message.has_read?(current_user)  %>"><%= message.title %></a>
+	<% if admin? -%>
+		      【<%= link_to "编辑", edit_message_path(message) %>】
+	<% end -%>
+      </td>
+      <td><%= message.mold %></td>
+      <td><%= _l message.created_at %></td>
+      <td><%= raw(status(message)) %></td>
+    </tr>
+    <tr id="<%= message.id %>_content" class="<%= cycle('even', 'odd') %>" style="display: none;">
+      <td colspan="4"><%= raw(message.content) %></td>
+    </tr>
+  <% end -%>
+</table>
+<% if admin? -%>
+  <h2 onclick="$('#new_message_form').toggle('slow');" class="pointer"><span class="ui-icon-green ui-icon-plusthick icon_span"></span>添加新的信息</h2>
+  <div id="new_message_form" class="hide">
+    <% @message = Message.new %>
+    <%= render 'form' %>
+  </div>
+<% end -%>

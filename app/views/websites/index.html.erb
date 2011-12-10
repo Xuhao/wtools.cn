@@ -1,0 +1,42 @@
+<table id="list_table" class="records_table">
+  <tr>
+    <th style="width: 5%" class="ui-corner-tl"><input type="checkbox" onchange="Common.selectAll(this);"/></th>
+    <th style="width: 30%"><%= Website.human_attribute_name("url") %></th>
+    <th style="width: 25%"><%= Website.human_attribute_name("name") %></th>
+    <th style="width: 20%"><%=t(".create_time")%></th>
+    <th style="width: 20%" class="ui-corner-tr"><%= t('words.actions') %></th>
+  </tr>
+
+  <% @websites.each do |website| -%>
+    <tr id="tr_<%= website.id %>" class="<%= cycle('even', 'odd') %>">
+      <td><input type="checkbox" value="<%= website.id %>"/></td>
+      <td><%= website.url %></td>
+      <td><%= website.name %></td>
+      <td><%= _l website.created_at %></td>
+      <td>
+        <%= link_to raw("<span class='ui-icon-red ui-icon-pencil icon_span'></span>#{t('buttons.edit')}"), edit_website_path(website), :class =>'action_icon' %>
+        <%= link_to raw("<span class='ui-icon-red ui-icon-trash icon_span'></span>#{t('buttons.delete')}"), website, :confirm => t("alert.confirm"), :method => :delete, :class =>'action_icon' %>
+      </td>
+    </tr>
+  <% end -%>
+
+  <% if @websites.blank? -%>
+    <tr class="even">
+      <td colspan="5">
+	   <%=t("notice.no_record", :model => Website.model_name.human)%>
+      </td>
+    </tr>
+  <% end -%>
+
+  <tr id="batch_action">
+    <th style="width: 5%" class="ui-corner-bl"><input type="checkbox" onchange="Common.selectAll(this);"/></th>
+    <th colspan="4" class="ui-corner-br">
+      <input type="button" value="<%=t("buttons.delete")%>" onclick="if(confirm('<%=t("alert.delete")%>')){Common.batchDelete('Website',$('input:checked[value]'))}"/>
+    </th>
+  </tr>
+</table>
+<h2 onclick="$('#new_website_form').toggle('slow');" class="pointer"><span class="ui-icon-green ui-icon-plusthick icon_span"></span>添加新的站点</h2>
+<div id="new_website_form" class="hide">
+  <% @website = current_user.websites.build %>
+  <%= render 'form' %>
+</div>

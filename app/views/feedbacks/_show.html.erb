@@ -1,0 +1,26 @@
+<div class="feedback-body">
+  <div class="feedback-title"><span class="ui-icon-red ui-icon-lightbulb icon_span"></span><%= link_to feedback.title, feedback_path(feedback) %></div>
+  <div class="feedback-content">
+    <% if action_name == 'show' -%>
+      <%= raw(feedback.content) %>
+    <% else -%>
+      <%= raw(truncate(feedback.content.clean_html, :omission => "......", :length => 100)) %>
+    <% end -%>
+  </div>
+  <div class="feedback-info">
+    <b><span class="ui-icon-green ui-icon-person icon_span"></span><%= feedback.username %></b><%=t(".answer")%><%= _l feedback.created_at %> | <%=t(".replay")%>(<%= feedback.replies_count %>)　
+    <a href="javascript:void(0);" onclick="FeedBack.vote(<%= feedback.id %>,'agree_num');" title="<%=t(".support")%>"><%=t(".support")%>
+      <span id="<%= feedback.id %>_agree_num"><%=  feedback.agree_num %></span></a>
+    <a href="javascript:void(0);" style="margin-left:6px;" onclick="FeedBack.vote(<%= feedback.id %>,'against_num');" title="<%=t(".against")%>"><%=t(".against")%>
+      <span id="<%= feedback.id %>_against_num"><%=  feedback.against_num %></span></a>
+    <% if current_user == feedback.user # 如果当前用户是反馈的作者，则可以编辑或删除反馈 -%>
+      <div class="user-action">
+	<span class="ui-icon-red ui-icon-pencil icon_span"></span><%= link_to t("buttons.edit"), edit_feedback_path(feedback) %>
+	<span class="ui-icon-red ui-icon-trash icon_span"></span><%= link_to t("buttons.delete"), feedback_path(feedback), :confirm => t("alert.confirm"), :method => :delete %>
+      </div>
+    <% end -%>
+  </div>
+</div>
+<% content_for :head do -%>
+  <base href="<%= full_host %>/" />
+<% end -%>

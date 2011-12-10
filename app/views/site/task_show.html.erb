@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+    <meta name="keywords" content="<%= @keywords %>"/>
+    <meta name="description" content="<%= @description %>"/>
+    <title><%= @title %></title>
+    <%= stylesheet_link_tag 'graph' %>
+    <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js?#{timestamp}" %>
+    <style type="text/css">
+      html { font: 12px arial; line-height: 22px;}
+      body { margin: 0; width: 100%;}
+      table { width: 100%;}
+      div { text-align: right; }
+    </style>
+  </head>
+  <body>
+    <table cellpadding="0" cellspacing="0">
+      <% @tasks.each_with_index do |task, task_index| -%>
+	<%= render :partial => '/site/task_tr', :locals => { :task => task, :tasks_size => @tasks.size,  :task_index => task_index } %>
+      <% end -%>
+      <tr>
+	<td colspan="3" class="copyright"><a href="http://wtools.cn" target="_blank">wtools.cn</a></td>
+      </tr>
+    </table>
+  </body>
+</html>

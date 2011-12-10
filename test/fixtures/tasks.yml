@@ -1,0 +1,37 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  name: MyString
+  description: MyString
+  type: MyString
+  time_num: 1
+  time_type: MyString
+  log_able: 1
+  aspire_word: MyString
+  show_control: 1
+  show_site: MyString
+  sms_alert: 1
+  email_alert: 1
+  completed_ratio: 1
+  should_completed_ratio: 1
+  delay_for_alert: 1
+  state: MyString
+
+two:
+  user_id: 1
+  name: MyString
+  description: MyString
+  type: MyString
+  time_num: 1
+  time_type: MyString
+  log_able: 1
+  aspire_word: MyString
+  show_control: 1
+  show_site: MyString
+  sms_alert: 1
+  email_alert: 1
+  completed_ratio: 1
+  should_completed_ratio: 1
+  delay_for_alert: 1
+  state: MyString

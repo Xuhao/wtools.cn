@@ -1,0 +1,10 @@
+'zh-CN':
+  navigation:
+    home: "首页"
+    login: "登陆"
+    logout: "注销"
+    register: "注册"
+    user_center: "用户中心"
+    locale_chose: "请选择你的语言"
+    contact: "联系"
+    about: "关于"

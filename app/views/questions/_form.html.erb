@@ -1,0 +1,12 @@
+<%= form.label :name, nil, :class => nil %>
+<%= form.text_field :name, :style => 'width: 350px;' %><span class="require">*</span>　　
+<%= form.label :type, nil, :class => nil %>
+<% if @question.new_record? %>
+  <%= radio_button_tag 'model_type', 'JobQuestion', true %><%= label_tag 'model_type_JobQuestion', t('.task') %>　
+  <%= radio_button_tag 'model_type', 'PlanQuestion' %><%= label_tag 'model_type_PlanQuestion', t('.plan') %><span class="require">*</span>
+<% else %>
+  <%= t ".#{@question.class.name.underscore}" %>
+<% end %>
+<br />
+<%= form.label :answer, nil, :class => nil, :style => "vertical-align: top;" %>
+<%= form.text_area :answer, :class => "xheditor-mfull {skin:'nostyle',emot:'pidgin'}", :style => 'height: 400px; width: 690px;' %><span class="require">*</span>

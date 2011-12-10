@@ -1,0 +1,15 @@
+<%= render "form" %>
+<script type="text/javascript">
+  $('form').live('submit', function() {
+    $.ajax({
+      type:'post',
+      url: '/styles<%= @style.new_record? ? "" : "/#{@style.id}" %>',
+      data:jQuery.param(jQuery($('form')).serializeArray()),
+      dataType:'script',
+      success:function(request){
+	alert(request);
+      }
+    });
+    return false;
+  })
+</script>

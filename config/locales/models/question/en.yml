@@ -1,0 +1,11 @@
+--- 
+en: 
+  activerecord: 
+    attributes: 
+      question: 
+        answer: Answer
+        hits: Hits
+        name: Name
+        type: Type
+    models: 
+      question: Question

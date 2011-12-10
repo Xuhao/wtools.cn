@@ -1,0 +1,10 @@
+--- 
+en: 
+  activerecord: 
+    attributes: 
+      website: 
+        description: Description
+        name: "Site name"
+        url: "Site URL"
+    models: 
+      website: Website

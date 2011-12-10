@@ -1,0 +1,6 @@
+<div id="q_body" class="ui-corner-all">
+  <div id="q_name"><%= @question.name %></div>
+  <div id="q_info"><%=t(".post_at")%><%= _l @question.created_at %>　<%=t(".view", times: @question.hits) %></div>
+  <div id="q_answer"><%= raw(@question.answer) %></div>
+  <div id="q_back"><span class="ui-icon-green ui-icon-arrowrefresh-1-w icon_span"></span><%= link_to t('.back'), questions_path %></div>
+</div>

@@ -1,0 +1,22 @@
+<div id="question-index">
+  <% if Question.count == 0 -%>
+    <span style="color: #9f9e9e;"><%=t(".dont_have_any_questions")%></span>
+  <% else -%>
+    <div class="float-l" style="width: 50%;">
+      <br /><b><%=t(".latest_questions")%></b>
+      <ul>
+	<% Question.get_by("created_at DESC",20).each do |question| -%>
+	  <li><%= link_to question.name, "/questions/#{question.id}" %></li>
+	<% end -%>
+      </ul>
+    </div>
+    <div class="float-r" style="width: 50%;">
+      <br /><b><%=t(".hot_questions")%></b>
+      <ul>
+	<% Question.get_by("hits DESC",20).each do |question| -%>
+	  <li><%= link_to question.name, "/questions/#{question.id}" %></li>
+	<% end -%>
+      </ul>
+    </div>
+  <% end -%>
+</div>

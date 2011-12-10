@@ -1,0 +1,72 @@
+<table class="records_table">
+  <tr>
+    <th style="width: 4%" class="ui-corner-tl"><input type="checkbox" onchange="Common.selectAll(this);" /></th>
+    <th style="width: 30%"><%= Task.human_attribute_name("name") %></th>
+    <th style="width: 8%"><%= Task.human_attribute_name("time_num") %></th>
+    <th style="width: 14%"><%= Task.human_attribute_name("completed_ratio") %></th>
+    <th style="width: 7%"><%= Task.human_attribute_name("status") %></th>
+    <th style="width: 37%" class="ui-corner-tr"><%= t('words.actions') %></th>
+  </tr>
+
+  <% @tasks.each do |task| %>
+    <tr id="tr_<%= task.id %>" class="<%= cycle('even', 'odd') %>">
+      <td><input type="checkbox" value="<%= task.id %>" /></td>
+      <td>
+	<%= link_to task.name, task %>
+      </td>
+      <td><%= task.duration %></td>
+      <td><%= percentize(task.ratio) %></td>
+      <td><%= raw(color_task_status(task)) %></td>
+      <td>
+        <%= link_to raw("<span class='ui-icon-red ui-icon-image icon_span action_icon'></span>#{t('.edit_style')}"), "/#{@task_class.name.tableize}/new/two/#{task.id}", :class =>'action_icon' %>
+	<% if task.log_able # 如果开启日志记录，就显示“写日志”按钮 -%>
+	  <a href="javascript:void(0);" onclick="$('#<%= task.id %>_logs').toggle();" class="action_icon"><span class="ui-icon-red ui-icon-pencil icon_span"></span><%=t(".write_a_log")%></a>
+	<% end -%>
+	<%= link_to raw('<span class="ui-icon-red ui-icon-wrench icon_span"></span>编辑'), __send__("edit_#{@task_class.name.downcase}_path",task),:class =>'action_icon' %>
+	<%= link_to raw('<span class="ui-icon-red ui-icon-trash icon_span"></span>删除'), task, :confirm => t("alert.confirm"), :method => :delete, :class =>'action_icon' %>
+      </td>
+    </tr>
+    <tr style="display: none;" id="<%= task.id %>_logs">
+      <td colspan="7" style="padding: 0;">
+	<%= render :partial => '/task_logs/list', :locals => { :task => task } %>
+      </td>
+    </tr>
+  <% end %>
+
+  <% if @tasks.blank? -%>
+    <tr class="even">
+      <td colspan="6">
+	 <%=t("notice.no_record", :model => @task_class.model_name.human)%><span class="ui-icon-green ui-icon-plusthick icon_span"></span><%= link_to "#{t('.new')}#{@task_class.model_name.human || 'Task'}", __send__("new_#{@task_class.name.downcase}_path") %>
+      </td>
+    </tr>
+  <% end -%>
+
+  <tr>
+    <th style="width: 5%" class="ui-corner-bl"><input type="checkbox" onchange="Common.selectAll(this);" /></th>
+    <th colspan="6" class="ui-corner-br">
+      <input type="button" value="<%=t("buttons.delete")%>" onclick="if(confirm('<%=t("alert.delete")%>')){Common.batchDelete('<%= @task_class.name %>',$('input:checked[value]'))}" />
+      <input type="button" value="<%=t("buttons.view")%>" onclick="window.open('<%=  %!/show/#{current_user.username}/#{@task_class.name.tableize}/! %>' + Common.collectIds($('input:checked[value]')))" />
+      <input type="button" value="<%=t("buttons.get_code")%>" onclick="Task.getCode('<%= full_host %>/show/<%= current_user.username %>/<%= @task_class.name.tableize %>',$('input:checked[value]'),'#code');" />
+    </th>
+  </tr>
+</table>
+
+<div id="code" style="margin-top: 10px;"></div>
+<br />
+<span class="ui-icon-green ui-icon-plusthick icon_span"></span><%= link_to "#{t('.new')}#{@task_class.model_name.human || 'Task'}", __send__("new_#{@task_class.name.downcase}_path") %>
+
+<style type="text/css">
+  .corner {-moz-border-radius-topright: 4px; -webkit-border-top-right-radius: 4px; border-top-right-radius: 4px; -moz-border-radius-bottomright: 4px; -webkit-border-bottom-right-radius: 4px; border-bottom-right-radius: 4px;}
+  .whole,.once-whole {position: relative; width: 100%; background-color: #B1D632; padding: 1px }
+  .completed {z-index: 2;background-color: #6d9e27; border: 1px solid #6d9e27;}
+  .should_completed {z-index: 1; background-color: #F39814; border: 1px solid #F39814;}
+  .completed, .should_completed {display: inline-block; position: absolute; left: 0; top: 0;text-align: right; height: 22px;}
+  .percent { font-weight: bold; line-height: 24px; }
+  .once-before-percent {display: inline-block; height: 16px; width: 90%; line-height: 16px; margin: 4px 0;}
+  .once-current-percent {background-color: #6d9e27; text-align: right; display: inline-block; }
+  .completed_percent {color: #FFF}
+  .should_completed_percent {color: #000}
+  .whole_percent {color: #000}
+  .log-ratio-slider .ui-slider-range { background: limegreen; }
+  .log-ratio-slider .ui-slider-handle { border-color: #8ae234; }
+</style>

@@ -1,0 +1,16 @@
+'zh-CN':
+  activerecord:
+    models:
+      user: "会员"
+    attributes:
+      user:
+        username: "用户名"
+        email: "邮箱"
+        locale: "语言"
+        password: "密码"
+        password_confirmation: "确认密码"
+        phone_num: "手机号码"
+        remember_me: "记住我"
+        current_password: '当前密码'
+        avatar: "用户头像"
+        default_avatar: "默认头像"

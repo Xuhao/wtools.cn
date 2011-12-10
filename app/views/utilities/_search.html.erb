@@ -1,0 +1,14 @@
+<div id="search-result">
+  <h4><span class="ui-icon-black ui-icon-circle-zoomout icon_span"></span><%=t(".search_result", keyword: params[:keyword])%></h4>
+  <ul class="record-list">
+    <% @records.each do |record| -%>
+      <li>
+	<div><span class="ui-icon-black ui-icon-carat-1-e icon_span"></span><%= link_to record.attributes['name'] || record.attributes['title'] || record.attributes['content'].to_s.cut(40), record %></div>
+	<div class="float-r"><%= _l record.attributes['created_at'] %></div>
+      </li>
+    <% end -%>
+  </ul>
+  <% if @records.empty? -%>
+    <span style="color: #9f9e9e;"><%=t(".no_result")%></span>
+  <% end -%>
+</div>

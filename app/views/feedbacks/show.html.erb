@@ -1,0 +1,3 @@
+<%= render :partial => "/feedbacks/show", :locals => { :feedback => @feedback } %>
+<%= render :partial => '/replies/index', :locals => { :replies => @feedback.replies } %>
+<%= render :partial => '/replies/new', :locals => { :feedback => @feedback } %>

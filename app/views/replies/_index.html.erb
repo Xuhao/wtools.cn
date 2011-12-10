@@ -1,0 +1,40 @@
+<div id="reply_list">
+  <% replies.each_with_index do |reply,index| %>
+    <a name="<%= reply.id %>"></a>
+    <div class="reply-body">
+      <div class="reply-info">
+	<%=t(".n_level", n: index+1)%><b> <%= reply.username %></b><span class="ip-location <%= format_ip(reply.user_current_sign_in_ip) %>">(<img src="/images/roller.gif" alt="" style="width: 22px; vertical-align: middle;" />)</span> <%=t(".reply_at", time: distance_of_time_in_words(reply.created_at, Time.now, true))%>　
+	<%= link_to t(".quote"), 'javascript:void(0);', :onclick => "$('#reply_reply_id').val('#{reply.id}');$('#reply_content').val(\"#{t('.quote_somebody', username: reply.username)}\");$('#reply_content').focus();" %>
+	<%= link_to(t("buttons.edit"),edit_reply_path(reply)) if reply.user == current_user %>
+      </div>
+      <div class="reply-content">
+	<% (reply_arr = reply_children_to_arr(reply, [])).each_with_index do |son,index| -%>
+	  <div class="reply-son">
+	    <div>
+	      <div class="reply-son-title"><%=t(".quote_somebody", username: son.username)%></div>
+	      <div class="reply-son-index"><%= reply_arr.size - index %></div>
+	      <div style="clear: both;"></div>
+	    </div>
+	  <% end -%>
+	  <% reply_arr.reverse_each do |reply_son| -%>
+	    <%= reply_son.content.html_safe %>
+	  </div>
+	<% end -%>
+	<%= reply.content.html_safe %>
+      </div>
+    </div>
+  <% end -%>
+</div>
+<% content_for :script do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+  <% replies.map{ |x| x.user_current_sign_in_ip }.uniq.each do |ip| %>
+      $.get("/utilities/get_ip_location?ip=<%= ip %>", function(data){
+	$('.<%= format_ip(ip) %>').each(function() {
+	  $(this).html('(' + data + ')');
+	})
+      });
+  <% end %>
+  });
+  </script>
+<% end -%>

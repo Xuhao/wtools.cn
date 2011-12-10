@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  type: MyString
+  name: MyString
+  answer: MyString
+  hits: 1
+
+two:
+  type: MyString
+  name: MyString
+  answer: MyString
+  hits: 1

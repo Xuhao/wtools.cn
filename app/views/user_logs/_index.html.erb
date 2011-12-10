@@ -1,0 +1,29 @@
+<table id="list_table" class="records_table">
+  <tr>
+    <th style="width: 5%" class="ui-corner-tl"><input type="checkbox" onchange="Common.selectAll(this);"/></th>
+    <th style="width: 20%"><%= UserLog.human_attribute_name("created_at") %></th>
+    <th style="width: 40%"><%= UserLog.human_attribute_name("content") %></th>
+    <th style="width: 20%"><%= UserLog.human_attribute_name("gold_count") %></th>
+    <th style="width: 15%" class="ui-corner-tr"><%= t('words.actions') %></th>
+  </tr>
+
+  <% @user_logs.each do |log| -%>
+    <tr id="tr_<%= log.id %>" class="<%= cycle('even', 'odd') %>">
+      <td><input type="checkbox" value="<%= log.id %>"/></td>
+      <td><%= _l log.created_at %></td>
+      <td><%= raw(log.content) %></td>
+      <td><%= log.gold_count %></td>
+      <td>
+	<%= link_to raw("<span class='ui-icon-red ui-icon-trash icon_span'></span>#{t('buttons.delete')}"), log, :confirm => t("alert.confirm"), :method => :delete, :class =>'action_icon' %>
+      </td>
+    </tr>
+  <% end -%>
+
+  <tr id="batch_action">
+    <th style="width: 5%" class="ui-corner-bl"><input type="checkbox" onchange="Common.selectAll(this);"/></th>
+    <th colspan="4" class="ui-corner-br">
+      <input type="button" value="<%=t("buttons.delete")%>" onclick="if(confirm('<%=t("alert.delete")%>')){Common.batchDelete('UserLog',$('input:checked[value]'))}"/>
+    </th>
+  </tr>
+</table>
+<%= paginate(@user_logs, :remote => true) %>

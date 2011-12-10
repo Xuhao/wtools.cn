@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1">
+        <file>
+            <url>app/views/users/detial.html.erb</url>
+            <line>3</line>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/E:/Apps/wtools/public/javascripts/rails.js</file>
+        <file>file:/E:/Apps/wtools/app/models/task.rb</file>
+        <file>file:/E:/Apps/wtools/app/controllers/utilities_controller.rb</file>
+        <file>file:/E:/Apps/wtools/app/mailers/user_mailer.rb</file>
+        <file>file:/E:/Apps/wtools/config/application.rb</file>
+        <file>file:/E:/Apps/wtools/lib/tasks/send_mail.rake</file>
+    </open-files>
+</project-private>

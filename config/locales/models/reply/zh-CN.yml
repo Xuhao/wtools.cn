@@ -1,0 +1,7 @@
+'zh-CN':
+  activerecord:
+    attributes:
+      reply:
+        content: '内容'
+    models:
+      reply: '回复'

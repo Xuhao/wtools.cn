@@ -1,0 +1,23 @@
+<p>
+  <b><%= t(".user") %></b>
+  <%=h @reply.user_id %>
+</p>
+
+<p>
+  <b><%= t(".feedback") %></b>
+  <%=h @reply.feedback_id %>
+</p>
+
+<p>
+  <b><%= t(".reply") %></b>
+  <%=h @reply.reply_id %>
+</p>
+
+<p>
+  <b><%= t(".content") %></b>
+  <%=h @reply.content %>
+</p>
+
+
+<%= link_to t('buttons.edit'), edit_reply_path(@reply) %> |
+<%= link_to t('buttons.back'), replies_path %>

@@ -1,0 +1,40 @@
+<table class="records_table">
+  <tr>
+    <th style="width: 5%" class="ui-corner-tl"><input type="checkbox" onchange="Common.selectAll(this);" /></th>
+    <th style="width: 15%"><%= Style.human_attribute_name("name") %></th>
+    <th style="width: 20%"><%= Style.human_attribute_name("created_at") %></th>
+    <th style="width: 40%"><%=t(".actived_plan")%></th>
+    <th style="width: 20%" class="ui-corner-tr"><%= t('words.actions') %></th>
+  </tr>
+
+  <% @styles.each do |style| %>
+    <tr id="tr_<%= style.id %>" class="<%= cycle('even', 'odd') %>">
+      <td><input type="checkbox" value="<%= style.id %>" /></td>
+      <td><%= style.name %></td>
+      <td><%= _l style.created_at %></td>
+      <td>
+	<% style.tasks.each do |task| -%>
+	  <%= link_to task.name, show_path(task), :target => '_blank' %>
+	<% end -%>
+      </td>
+      <td><%= link_to raw("<span class='ui-icon-red ui-icon-pencil icon_span'></span>#{t('buttons.edit')}"), edit_style_path(style),:class =>'action_icon' %>
+        <%= link_to raw("<span class='ui-icon-red ui-icon-trash icon_span'></span>#{t('buttons.delete')}"), style, :confirm => t("alert.confirm"), :method => :delete,:class =>'action_icon' %>
+      </td>
+    </tr>
+  <% end %>
+
+  <% if @styles.blank? -%>
+    <tr class="even">
+      <td colspan="5"><%=t("notice.no_record", :model => Style.model_name.human)%><span class="ui-icon-green ui-icon-plusthick icon_span"></span><%= link_to t('.create'), new_style_path %></td>
+    </tr>
+  <% end -%>
+
+  <tr>
+    <th style="width: 5%" class="ui-corner-bl"><input type="checkbox" onchange="Common.selectAll(this);" /></th>
+    <th colspan="4" class="ui-corner-br">
+      <input type="button" value="<%=t("buttons.delete")%>" onclick="if(confirm('<%=t("alert.delete")%>')){Common.batchDelete('Style',$('input:checked[value]'))}" />
+    </th>
+  </tr>
+</table>
+<br />
+<span class="ui-icon-green ui-icon-plusthick icon_span"></span><%= link_to t('.create'), new_style_path %>

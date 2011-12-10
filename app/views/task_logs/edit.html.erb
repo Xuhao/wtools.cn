@@ -1,0 +1,8 @@
+<%= form_for :task_log,@task_log,:url => task_log_url(@task_log,:task_id => @task_id),:html=>{:method=>:put}  do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => '/task_logs/form', :object => f %>
+  <br /><br />
+  <%= link_to t("words.back"), __send__("#{@task.class.name.underscore}_path",@task) %>
+  <%= f.submit :disable_with => t(".saving")%>
+  <br /><br />
+<% end %>

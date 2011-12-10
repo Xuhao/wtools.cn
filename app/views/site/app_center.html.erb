@@ -1,0 +1,62 @@
+<div id="app_center_list">
+  <div class="app-details">
+    <div class="app-big-img"><%= image_tag "plan_big.png" %></div>
+    <div class="app-intr">
+      <div class="app-name"><%=t(".make_a_plan")%></div>
+      <div class="app-desc"><%= raw(t("site.index.introduction.plan.description")) %></div>
+    </div>
+    <div class="app-action">
+      <span id="had_add_plan" class="had_add"<%= raw('style="display: none;"') unless current_user.app_codes.include?('plan') %>>
+        <span class="ui-icon-green ui-icon-check icon_span"></span>
+        <%=t(".installed")%>
+      </span>
+      <span id="app_del_plan"<%= raw('style="display: none;"') unless current_user.app_codes.include?('plan') %>>
+        <span class="ui-icon-red ui-icon-closethick icon_span"></span>
+	<%= link_to t(".uninstall"),
+	  {:controller => 'utilities', :action => 'app_uninstall', :code => 'plan'},
+	  :remote => true,
+	  :method => :post,
+	  :id => 'plan_uninstall_link' %>
+      </span>
+      <span id="app_add_plan"<%= raw('style="display: none;"') if current_user.app_codes.include?('plan') %>>
+	<span class="ui-icon-green ui-icon-plusthick icon_span"></span>
+	<%= link_to t(".install"),
+	  {:controller => 'utilities', :action => 'app_install', :code => 'plan'},
+	  :remote => true,
+	  :method => :post,
+	  :id => 'plan_install_link' %>
+      </span>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+  <div class="app-details">
+    <div class="app-big-img"><%= image_tag "job_big.png" %></div>
+    <div class="app-intr">
+      <div class="app-name"><%=t(".make_a_job")%></div>
+      <div class="app-desc"><%= raw(t("site.index.introduction.job.description")) %></div>
+    </div>
+    <div class="app-action">
+      <span id="had_add_job" class="had_add"<%= raw('style="display: none;"') unless current_user.app_codes.include?('job') %>>
+        <span class="ui-icon-green ui-icon-check icon_span"></span>
+        <%=t(".installed")%>
+      </span>
+      <span id="app_del_job"<%= raw('style="display: none;"') unless current_user.app_codes.include?('job') %>>
+        <span class="ui-icon-red ui-icon-closethick icon_span"></span>
+	<%= link_to t(".uninstall"),
+	  {:controller => 'utilities', :action => 'app_uninstall', :code => 'job'},
+	  :remote => true,
+	  :method => :post,
+	  :id => 'job_uninstall_link' %>
+      </span>
+      <span id="app_add_job"<%= raw('style="display: none;"') if current_user.app_codes.include?('job') %>>
+	<span class="ui-icon-green ui-icon-plusthick icon_span"></span>
+	<%= link_to t(".install"),
+	  {:controller => 'utilities', :action => 'app_install', :code => 'job'},
+	  :remote => true,
+	  :method => :post,
+	  :id => 'job_install_link' %>
+      </span>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+</div>

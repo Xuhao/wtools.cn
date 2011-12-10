@@ -1,0 +1,10 @@
+<%= form_for @question, :as => :question do |f| %>
+  <%= f.error_messages %>
+
+  <%= render :partial => '/questions/form', :object => f %>
+  <br /><br />
+  <%= f.submit %>
+<% end %>
+
+<%= link_to  t('buttons.show'), edit_question_path(@question) %> |
+<%= link_to t('words.back'), questions_path %>

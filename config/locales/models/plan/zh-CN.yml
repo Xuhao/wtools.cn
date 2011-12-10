@@ -1,0 +1,4 @@
+'zh-CN':
+  activerecord:
+    models:
+      plan: "计划"

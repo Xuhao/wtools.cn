@@ -1,0 +1,15 @@
+'zh-CN':
+  task_logs:
+    title:
+      time_stamp: "时间元"
+      once_percent: "进度"
+      log: "日志"
+      evaluation: "自我评价"
+      action: "操作"
+    evaluation:
+      poor: "差"
+      common: "一般"
+      good: "良好"
+      verygood: "很好"
+    list:
+      fill_log: "点击填写日志"

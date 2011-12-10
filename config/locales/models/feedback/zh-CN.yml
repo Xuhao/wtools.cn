@@ -1,0 +1,12 @@
+'zh-CN':
+  activerecord:
+    models:
+      feedback: "用户反馈"
+    attributes:
+      feedback:
+        user_id: "用户"
+        type: "类型"
+        title: "标题"
+        content: "内容"
+        agree_num: "支持数"
+        against_num: "反对数"

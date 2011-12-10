@@ -1,0 +1,54 @@
+<table class="detail_table" cellpadding="1" cellspacing="0">
+  <tr>
+    <% if task._style.time_stamp_display -%>
+      <th style="width: 10%;"><%=t(".time")%></th>
+      <% c_num += 1 -%>
+    <% end -%>
+    <% if task._style.once_ratio_display -%>
+      <th style="width: 30%;"><%=t(".process")%></th>
+      <% c_num += 1 -%>
+    <% end -%>
+    <% if task._style.log_display -%>
+      <th style="width: 45%;"><%=t(".log")%></th>
+      <% c_num += 1 -%>
+    <% end -%>
+    <% if task._style.evaluation_display -%>
+      <th style="width: 15%;"><%=t(".evaluation")%></th>
+      <% c_num += 1 -%>
+    <% end -%>
+  </tr>
+  <% init_percent = 0 #递加每次的进度    -%>
+  <% task_logs = task._style.done_only_display ? task.done_logs : task.task_logs.all -%>
+  <% task_logs.each_with_index do |log, index| -%>
+    <tr class="log-tr <%= cycle('even', 'odd') %>" id="<%= "#{log.id}_#{index}" %>">
+      <% if task._style.time_stamp_display #是否显示时间标志    -%>
+	<td><%= t("words.the") %><%= index + 1 %><%= t("words.#{task.time_type}") -%></td>
+      <% end -%>
+      <% if task._style.once_ratio_display #是否显示每次完成百分比    -%>
+	<td>
+	  <span class="once-whole corner once-before-percent" style="background-color: #B1D632;">
+	    <span style="width:<%= percentize(init_percent) -%>;display: inline-block;"></span><span class="corner once-current-percent" style="color: <%= Utils.inverse_color('#6d9e27') %>; width:<%= percentize(log.ratio) -%>;"><%= percentize(log.ratio) -%></span>
+	  </span>
+	</td>
+      <% end -%>
+      <% if task._style.log_display #是否显示日志记录    -%>
+	<td><%= log.content -%></td>
+      <% end -%>
+      <% if task._style.evaluation_display #是否显示自我评价    -%>
+	<td><%= level_to_img(log.evaluation, {}) -%></td>
+      <% end -%>
+    </tr>
+    <% init_percent += log.ratio -%>
+  <% end -%>
+  <tr>
+    <td class="summarize" colspan="<%= c_num %>">
+      <%=t(".completed_precent")%><span><%= percentize(init_percent) -%></span>，
+      <% if task._style.statistical_evaluation_display #对不同评价的比例统计    -%>
+	<%=t(".in")%><%= raw(statistical(task.task_logs)) %>
+      <% end -%>
+      <% if task._style.aspire_word_display and !task.aspire_word.blank? #是否显示立志语    -%>
+	<span style="float: right;"><%= task.aspire_word %></span>
+      <% end -%>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,8 @@
+<h1><%= t('words.new')%><%=@task_log.class.model_name.human %></h1>
+<%= form_for @task_log,:url => task_logs_url(:task_id => @task_id) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => '/task_logs/form', :object => f %>
+<br /><br/>
+  <%= link_to t("words.back"), __send__("#{@task.class.name.underscore}_path",@task) %>
+  <%= f.submit :disable_with => t("buttons.saving") %>
+<% end %>

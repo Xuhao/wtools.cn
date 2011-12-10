@@ -1,0 +1,10 @@
+<%= form_for(@website) do |form| %>
+  <%= form.error_messages %>
+  <%= form.label :name %>
+  <%= form.text_field :name %><br /><br />
+  <%= form.label :url %>
+  <%= form.text_field :url %><span class="require">*</span><br /><br />
+  <%= form.label :description %>
+  <%= form.text_field :description %><br /><br />
+  <%= form.submit %>
+<% end %>

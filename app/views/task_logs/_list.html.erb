@@ -1,0 +1,64 @@
+<% init_percent = 0 #递加每次的进度  -%>
+<%- slider_num = 0 # ratio可编辑的个数 %>
+<% task_logs = task.task_logs %>
+<div id="task_log_list_<%= task.id %>">
+  <table class="task_log_list">
+    <tr>
+      <th style="background-color: #ECE9D8;width: 10%;"><span id="time_stamp"><%=t("task_logs.title.time_stamp")%></span></th>
+      <th style="background-color: #ECE9D8;width: 35%;"><span id="once_percent"><%=t("task_logs.title.once_percent")%></span></th>
+      <th style="background-color: #ECE9D8;width: 35%;"><span id="log"><%=t("task_logs.title.log")%></span></th>
+      <th style="background-color: #ECE9D8;width: 10%;"><span id="evaluation"><%=t("task_logs.title.evaluation")%></span></th>
+      <th style="background-color: #ECE9D8;width: 10%; text-align: center;"><span id="evaluation"><%=t("task_logs.title.action")%></span></th>
+    </tr>
+    <% task_logs.each_with_index do |log, index| -%>
+      <tr>
+	<td><%= t("words.the") %><%= index + 1 %><%= t("words.#{task.time_type}") -%></td>
+	<td>
+	  <span class="log-ratio-slider" style="width: 85%; display: inline-block; " id="log_<%= log.id %>"></span>
+	  <%- if slider_num == 0 and log.ratio_editable? # 当列表没有slider，并且日志可以编辑ratio %>
+	    <% slider_num += 1 -%>
+	    <span id="ratio_<%= log.id %>" style="font-size: 10px;"><%= percentize(init_percent + log.ratio.to_i) -%></span>
+	    <script type="text/javascript">
+	      $(function() {
+		$("#log_<%= log.id %>").slider({
+		  range: "min",
+		  value: <%= log.ratio %>,
+		  min: 0,
+		  max: 100 - <%= init_percent %>,
+		  slide: function(event, ui) {
+		    $("#ratio_<%= log.id %>").html(ui.value + <%= init_percent %> + '%');
+		    $(".ui-slider-range").html(ui.value + '%');
+		    $(".ui-slider-range").css("line-height", '10px');
+		    $("#once_percent_<%= log.id %>").val(ui.value);
+		    $('#submit_<%= log.id %>').removeAttr('disabled');
+		  }
+		});
+		//$( "#ratio_<%= log.id %>" ).html( $( "#log_<%= log.id %>" ).slider( "value" ) + '%' );
+		$(".ui-slider-range").html(<%= log.ratio %> + '%');
+		$(".ui-slider-range").css("line-height", '10px');
+	      });
+	    </script>
+	  <% else -%>
+	    <span class="once-whole corner once-before-percent" style="width: 85%;">
+	      <span style="width:<%= percentize(init_percent) -%>;display: inline-block;"></span><span class="corner once-current-percent" style="color: <%= Utils.inverse_color('#6d9e27') %>; width:<%= percentize(log.ratio) -%>;"><%= percentize(log.ratio) -%></span>
+	    </span>
+	    <%= percentize(init_percent + log.ratio.to_i) -%>
+	  <% end -%>
+	  <input type="hidden" value="<%= log.ratio %>" id="once_percent_<%= log.id %>"/>
+	</td>
+	<td style="cursor: pointer;">
+	  <input type="text" class="transparent_input" id="<%= log.id %>_content" onclick="$('#submit_<%= log.id %>').removeAttr('disabled');$(this).removeClass('transparent_input');" style="width:95%" value="<%= log.content || t('.fill_log') -%>" />
+	</td>
+	<td>
+	  <%= level_to_img(log.evaluation, :onclick => "$(this).hide();$('#submit_#{log.id}').removeAttr('disabled');$('##{log.id}_evaluation').show();") -%>
+	  <%= select_tag "evaluation", raw(level_options(log.evaluation)), :id => "#{log.id}_evaluation", :onclick => "$('#submit_#{log.id}').removeAttr('disabled');", :style => %~#{'display: none' unless log.evaluation.blank?}~ %>
+	</td>
+	<td style="text-align: center;">
+	  <input type="submit" value="<%=t("buttons.save")%>" id="submit_<%= log.id %>" disabled onclick="Task.saveLog('<%= task.id %>','<%= log.id %>',$('#once_percent_<%= log.id %>'),$('#<%= log.id %>_content'),$('#<%= log.id %>_evaluation'), '#task_log_list_<%= task.id %>');"/>
+	</td>
+      </tr>
+      <% init_percent += log.ratio.to_i -%>
+    <% end -%>
+  </table>
+  <div style="clear: both;"></div>
+</div>

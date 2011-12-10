@@ -1,0 +1,23 @@
+<p>
+  <b>User:</b>
+  <%=h @user_log.user_id %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @user_log.content %>
+</p>
+
+<p>
+  <b>Query string:</b>
+  <%=h @user_log.query_string %>
+</p>
+
+<p>
+  <b>Created at:</b>
+  <%=h @user_log.created_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_log_path(@user_log) %> |
+<%= link_to 'Back', user_logs_path %>

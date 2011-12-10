@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  type: MyString
+  content: MyString
+  agree_num: MyString
+  against_num: MyString
+
+two:
+  user_id: 1
+  type: MyString
+  content: MyString
+  agree_num: MyString
+  against_num: MyString

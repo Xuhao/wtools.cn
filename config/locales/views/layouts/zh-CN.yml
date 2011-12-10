@@ -1,0 +1,20 @@
+'zh-CN':
+  layouts:
+    member:
+      my_application: "我的应用"
+      manage: "管理"
+      make_plan: "计划定制"
+      make_job: "任务跟踪"
+      info_center: "信息管理"
+      my_styles: "我的样式"
+      my_websites: "我的站点"
+      change_account: "资料更新"
+      helper_center: "帮助中心"
+      answer: "问题解答"
+      add: "添加"
+      create: "发表"
+      update_info: "信息更新"
+      feedback: "用户反馈"
+
+    replies:
+      title: "回复: %{name}"

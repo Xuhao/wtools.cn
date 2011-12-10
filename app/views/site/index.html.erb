@@ -1,0 +1,76 @@
+<div id="demo">
+  <img src="/images/job_demo.png" id="job_demo" alt="" />
+  <img src="/images/plan_demo.png" id="plan_demo" alt="" />
+</div>
+<div id="user-list" class="ten-corner-all">
+  <div id="new_apps" class="ten-corner-all">
+    <img id="roller" src="/images/roller.gif" alt="" />
+  </div>
+</div>
+<div id="user-start">
+  <div id="accordion-div">
+    <div id="accordion">
+      <h3 id="job_name"><a href="#"><%= t ".introduction.job.name" %></a></h3>
+      <div id="job_description"><%= raw(t ".introduction.job.description") %><%= raw(t ".introduction.comm_desc") %></div>
+
+      <h3 id="plan_name"><a href="#"><%= t ".introduction.plan.name" %></a></h3>
+      <div id="plan_description"><%= raw(t ".introduction.plan.description") %><%= raw(t ".introduction.comm_desc") %></div>
+      <!--
+	<h3><a href="#"><%= t ".introduction.remind.name" %></a></h3>
+	<div><p><%= t ".introduction.remind.description" %></p></div>
+	<h3><a href="#"><%= t ".introduction.signature.name" %></a></h3>
+	<div><p><%= t ".introduction.signature.description" %></p></div>
+	-->
+    </div>
+  </div>
+  <div id="start-button">
+    <a href="/login" class="button"><span id="login-button"><%= t ".button.login" %></span></a>
+    <a href="/register" class="button"><span id="register-button"><%= t ".button.register" %></span></a>
+  </div>
+</div>
+<div class="clear"></div>
+<% content_for :script do %>
+  <script type="text/javascript">
+    $(function() {
+      $("#accordion").accordion({
+	event: "mouseover",
+	fillSpace: true
+      });
+
+      $("#accordionResizer").resizable({
+	minHeight: 140,
+	resize: function() {
+	  $("#accordion").accordion("resize");
+	}
+      });
+
+      $("#login-button").button({ icons: {primary:'ui-icon-person',secondary:'ui-icon-circle-triangle-e'} });
+      $("#register-button").button({ icons: {primary:'ui-icon-unlocked',secondary:'ui-icon-circle-triangle-e'} });
+
+      Site.showDemo('#job_name','#job_demo');
+      Site.showDemo('#plan_name','#plan_demo');
+      Site.showDemo('#job_description','#job_demo');
+      Site.showDemo('#plan_description','#plan_demo');
+    });
+    $(document).ready(function() {
+      Common.executeTooltips();
+      
+      $.get("/new_apps", function(data){
+	$('#new_apps').html(data);
+      });
+      
+      window.setInterval(loadNew, 4000 );
+      function loadNew() {
+	var visibles = $('li:visible');
+	if (visibles.first().prev().size() == 0) {
+	  $(".app_list").prepend($('li').last());
+	  //$('li').last().remove();
+	}
+	var show_dom = visibles.first().prev().first();
+	show_dom.slideDown(500);
+	visibles.last().slideUp(500);
+      }
+
+    });
+  </script>
+<% end -%>

@@ -1,0 +1,9 @@
+en:
+  task_logs:
+    form:
+      poor: "Poor"
+      common: "Common"
+      good: "Good"
+      verygood: "Very Good"
+    show:
+      detail: "detail"

@@ -1,0 +1,154 @@
+<h3 class="style_show"><%=t(".preview")%></h3>
+<div id="graph_show">
+  <table>
+    <tr>
+      <td class="name_td"><div id="name"><%=t(".develop_website")%></div></td>
+      <td colspan="0">
+        <div id="whole_4" class="whole corner">
+          <!--整个百分比-->
+          <div id="whole_percent_4" class="whole_percent percent"><span class="whole_ratio">100%</span><span class="whole_time_stamp" style="display: none;">6 <%=t("words.day")%></span></div>
+          <!--已完成进度条-->
+          <div id="completed_4" class="completed corner" style="width: 32%;" title="<%=t(".completed")%>32%" onmouseover="$(this).css('border-color',$('#style_border_color').val());" onmouseout="$(this).css('border-color',$('#style_completed_bgcolor').val());">
+            <div id="completed_percent_4" class="completed_percent percent"><span class="completed_ratio">32%</span><span class="completed_time_stamp" style="display: none;">1 <%=t("words.day")%></span></div>
+          </div>
+          <!--应完成进度条-->
+          <div id="should_completed_4" class="should_completed corner" style="width: 50%;" title="<%=t(".should_complete")%>50%"  onmouseover="$(this).css('border-color',$('#style_border_color').val());$('#completed_4').hide();" onmouseout="$(this).css('border-color',$('#style_should_completed_bgcolor').val());$('#completed_4').show();">
+            <div id="should_completed_percent_4" class="should_completed_percent percent"><span class="should_completed_ratio">50%</span><span class="should_completed_time_stamp" style="display: none;">3 <%=t("words.day")%></span></div>
+          </div>
+        </div>
+      </td>
+      <!--详细信息按钮-->
+      <td class="detail_td">
+        <img src="/images/detail1.png" alt="<%=t(".details")%>" class="detail_buttom" onclick="$('#detail_table_4').toggle();" />
+      </td>
+    </tr>
+    <!--详细信息区域-->
+    <tr id="detail_table_4">
+      <td></td>
+      <td colspan="0">
+        <!--详细信息表格-->
+        <table class="detail_table" cellpadding="1" cellspacing="0">
+          <tr>
+            <th width="15%"><span id="time_stamp"><%=t(".time_stamp")%></span></th>
+            <th width="30%"><span id="once_percent"><%=t(".once_percent")%></span></th>
+            <th width="40%"><span id="log"><%=t(".log")%></span></th>
+            <th width="15%"><span id="evaluation"><%=t(".evaluation")%></span></th>
+          </tr>
+          <tr class="log-tr" id="1_0">
+            <td><span class="time_stamp"><%=t(".nth_day", n: 1)%></span></td>
+            <td>
+              <span class="once-whole corner once-before-percent once_percent">
+                <span style="width:0%;display: inline-block;"></span><span class="corner once-current-percent" style="color: #FFF; width:4%;">4%</span>
+              </span>
+            </td>
+            <td><span class="log"><%=t(".message")%></span></td>
+            <td><span class="evaluation"><%= image_tag 'level4.png' %></span></td>
+          </tr>
+          <tr class="log-tr" id="2_1">
+            <td><span class="time_stamp"><%=t(".nth_day", n: 2)%></span></td>
+            <td>
+              <span class="once-whole corner once-before-percent once_percent">
+                <span style="width:4%;display: inline-block;"></span><span class="corner once-current-percent" style="color: #FFF; width:5%;">5%</span>
+              </span>
+            </td>
+            <td><span class="log"><%=t(".message")%></span></td>
+            <td><span class="evaluation"><%= image_tag 'level2.png' %></span></td>
+          </tr>
+          <tr class="log-tr" id="3_2">
+            <td><span class="time_stamp"><%=t(".nth_day", n: 3)%></span></td>
+            <td>
+              <span class="once-whole corner once-before-percent once_percent">
+                <span style="width:9%;display: inline-block;"></span><span class="corner once-current-percent" style="color: #FFF; width:10%;">10%</span>
+              </span>
+            </td>
+            <td><span class="log"><%=t(".message")%></span></td>
+            <td><span class="evaluation"><%= image_tag 'level4.png' %></span></td>
+          </tr>
+          <tr class="log-tr" id="4_3">
+            <td><span class="time_stamp"><%=t(".nth_day", n: 4)%></span></td>
+            <td>
+              <span class="once-whole corner once-before-percent once_percent">
+                <span style="width:19%;display: inline-block;"></span><span class="corner once-current-percent" style="color: #FFF; width:1%;">1%</span>
+              </span>
+            </td>
+            <td><span class="log"><%=t(".message")%></span></td>
+            <td><span class="evaluation"><%= image_tag 'level3.png' %></span></td>
+          </tr>
+          <tr class="log-tr" id="5_4">
+            <td><span class="time_stamp"><%=t(".nth_day", n: 5)%></span></td>
+            <td>
+              <span class="once-whole corner once-before-percent once_percent">
+                <span style="width:20%;display: inline-block;"></span><span class="corner once-current-percent" style="color: #FFF; width:2%;">2%</span>
+              </span>
+            </td>
+            <td><span class="log"><%=t(".message")%></span></td>
+            <td><span class="evaluation"><%= image_tag 'level2.png' %></span></td>
+          </tr>
+          <tr class="log-tr" id="6_5">
+            <td><span class="time_stamp"><%=t(".nth_day", n: 6)%></span></td>
+            <td>
+              <span class="once-whole corner once-before-percent once_percent">
+                <span style="width:22%;display: inline-block;"></span><span class="corner once-current-percent" style="color: #FFF; width:10%;">10%</span>
+              </span>
+            </td>
+            <td><span class="log"><%=t(".message")%></span></td>
+            <td><span class="evaluation"><%= image_tag 'level1.png' %></span></td>
+          </tr>
+          <tr><td class="summarize" colspan="4">
+              <%=t(".completed_precent")%><span>32%</span>　
+              <span style="color: #000" id="evaluation_statistical"><%=t(".among")%><b class="very-good"><%=t(".very_good")%></b>(<span>10%</span>)，<b class="good"><%=t(".good")%></b>(<span>7%</span>)，<b class="ordinary"><%=t(".ok")%></b>(<span>1%</span>)，<b class="bad"><%=t(".bad")%></b>(<span>14%</span>)</span>
+              <span id="aspire_word" style="float: right;"><%=t(".aspire_word")%></span>
+            </td></tr>
+        </table>
+      </td>
+      <td></td></tr>
+    <tr><td colspan="3" class="copyright"><b style="float: left;"><%=t(".note")%></b><a href="http://wtools.cn" target="_blank">wtools.cn</a></td></tr>
+  </table>
+</div>
+<% content_for :style do %>
+  <style type="text/css">
+    #graph_show { clear: both; width:100%; padding-top: 10px; background-color: #ffffcc; border: #ffc73d solid 1px;}
+    #graph_show table { width: 98%;}
+    #graph_show table td {line-height: 24px;}
+    #graph_show div { height: 24px; text-align: right; }
+    #graph_show .name_td {width: 4em;}
+    #graph_show .detail_td { width: 3em;}
+    #graph_show .detail_td img{ vertical-align: middle; cursor: pointer;}
+    #graph_show .detail_table {border: 1px solid #2e7db2; width: 100%;}
+    #graph_show .detail_table th { text-align: left; padding-left: 5px; background-color: #ECE9D8;}
+    #graph_show .detail_table td { text-align: left; padding-left: 6px; background-color: #CEE8F5; border: none;border-top: 0.2em solid #FFF;}
+    #graph_show td.summarize {background-color:#DFE0FF;}
+    #graph_show td.summarize span {color: blueviolet;}
+    #graph_show td.copyright {text-align: right; height: 18px;}
+    .corner {-moz-border-radius-topright: 4px; -webkit-border-top-right-radius: 4px; border-top-right-radius: 4px; -moz-border-radius-bottomright: 4px; -webkit-border-bottom-right-radius: 4px; border-bottom-right-radius: 4px;}
+    .whole,.once-whole {position: relative; width: 100%; background-color: #B1D632; padding: 1px }
+    .completed {z-index: 2;background-color: #6d9e27; border: 1px solid #6d9e27;}
+    .should_completed {z-index: 1; background-color: #F39814; border: 1px solid #F39814;}
+    .completed, .should_completed {display: inline-block; position: absolute; left: 0; top: 0;text-align: right; height: 22px;}
+    .percent { font-weight: bold; line-height: 24px; }
+    .once-before-percent {display: inline-block; height: 16px; width: 90%; line-height: 16px; margin: 4px 0;}
+    .once-current-percent {background-color: #6d9e27; text-align: right; display: inline-block; }
+    .completed_percent {color: #FFF}
+    .whole_percent, .should_completed_percent { color: #000;}
+  </style>
+<% end -%>
+<% content_for :script do %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.log-tr').hover(
+      function(){
+	$(this).children().each(function(){
+	  $(this).css('background-color','#d1f6b2');
+	})},
+      function(){
+	$(this).children().each(function(){
+	  $(this).css('background-color','#CEE8F5');
+	})}
+    );
+      //加载时执行
+      Style.deployOnLoad();
+      //事件驱动执行
+      Style.deployOnChange();
+    });
+  </script>
+<% end -%>

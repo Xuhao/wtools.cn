@@ -1,0 +1,27 @@
+en:
+  tasks:
+    index:
+      h1: "My "
+      new: "New "
+
+      normal: "Normal"
+      delay: "Delay"
+      surpassing: "Surpassing"
+      completed: "Completed"
+      closed: "Closed"
+    new:
+      h1: "Create new %{task_type}"
+    edit:
+      h1: "Edit %{task_type}"
+    form:
+      
+    show:
+      detail: "detail"
+
+      normal: "Normal"
+      delay: "Delay"
+      surpassing: "Surpassing"
+      completed: "Completed"
+      closed: "Closed"
+    task_logs_list:
+      the: "%{number} "

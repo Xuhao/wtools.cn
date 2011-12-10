@@ -1,0 +1,30 @@
+--- 
+en: 
+  activerecord: 
+    attributes: 
+      task: 
+        aspire_word: "Aspire word"
+        begin_at: "Begin at"
+        category_id: Category
+        completed_ratio: Completed
+        delay_for_alert: "Delay cordon"
+        description: Description
+        email_alert: "Email Warning"
+        end_at: "End at"
+        from_to: Time
+        img_able: "Img able"
+        last_show_at: "Last show at"
+        log_able: "Create logs"
+        name: Name
+        should_completed_ratio: "Should completed"
+        show_control: "Only displayed on the specified site"
+        show_site: "Displayable sites"
+        sms_alert: "SMS Warning"
+        status: Status
+        style_id: Style
+        time_num: "Time Num"
+        time_type: "Time Type"
+        open: "Public"
+        email_notice: "A Email tell you what should do in current stage"
+    models: 
+      task: Task

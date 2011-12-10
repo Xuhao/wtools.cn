@@ -1,0 +1,9 @@
+'zh-CN':
+  activerecord:
+    models:
+      website: "网站"
+    attributes:
+      website:
+        name: "网站名称"
+        url: "网站地址"
+        description: "网站说明"

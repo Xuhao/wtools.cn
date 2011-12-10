@@ -1,0 +1,2 @@
+module UserLogsHelper
+end

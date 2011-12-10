@@ -1,0 +1,12 @@
+'zh-CN':
+  activerecord:
+    models:
+      message: "系统信息"
+    attributes:
+      message:
+        title: "标题"
+        content: "内容"
+        mold: "类型"
+        created_at: "时间"
+        target: "目标"
+        status: "状态"

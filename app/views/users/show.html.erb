@@ -1,0 +1,82 @@
+<div id="log_open_app" class="ui-corner-top">
+  <div class="float-l">
+    <div class="creat-button">
+      <span class="num">1、</span>为工作或生活制定一个目标：<span class="ui-icon-green ui-icon-plusthick icon_span"></span><a href="/jobs/new/one">创建一个任务</a><br />
+      <span class="num">2、</span>现在有一个周密详细的计划：<span class="ui-icon-green ui-icon-plusthick icon_span"></span><a href="/plans/new/one">创建一个计划</a><br />
+      <span class="num">3、</span>控制任务或计划的显示效果：<span class="ui-icon-green ui-icon-plusthick icon_span"></span><a href="/styles/new">创建一个样式</a>
+    </div>
+    <div class="opened-app">
+      <b><%=t(".latest_created_app")%></b>
+      <ul class="record-list">
+	<% (tasks = current_user.tasks.recent_tasks(6).all).each do |task| -%>
+	  <li onclick="window.location.href = '<%= "/#{task.type.tableize}/#{task.id}" %>'" title="点击查看详细信息">
+	    <div class="bar" style="width: <%= ratio = "#{task.ratio}%" %>;"></div>
+	    <div><span class="ui-icon-black ui-icon-carat-1-e icon_span"></span><%= task.name %> (进度：<span class="ratio"><%= ratio -%></span>) </div>
+	    <div class="float-r"><span title="<%=t(".create_at")%><%= _l task.created_at %>"><%= distance_of_time_in_words task.created_at, Time.now, true %><%=t(".before")%></span></div>
+	  </li>
+	<% end -%>
+      </ul>
+      <% if tasks.size == 0 -%>
+	<span style="color: #9f9e9e;"><%=t(".no_any_app")%></span>
+      <% end -%>
+    </div>
+  </div>
+  <div id="current_user_logs" class="float-r">
+    <h4><%=t(".activity")%>：（<%= link_to "管理日志", user_logs_path %>）</h4>
+    <% if @user_logs.empty? -%>
+      <span style="color: #9f9e9e;"><%=t(".no_activity_msg")%></span>
+    <% else -%>
+      <ul>
+	<% @user_logs.each do |log| -%>
+	  <li>
+	    <div class="log_img">
+	      <% if log.log_type == 'User' -%>
+		<%= image_tag current_user._avatar, :alt => 'UserLogImg', :class => "four-corner-all" -%>
+	      <% elsif log.log_type =~ /^job.+|^plan.+/i -%>
+		<img src="/images/<%= log.log_type.downcase.sub(/job|plan/, '') %>.png" alt="UserLogImg" class="four-corner-all"/>
+	      <% else -%>
+		<img src="/images/<%= log.log_type.downcase.sub(/reply/, 'feedback') %>.png" alt="UserLogImg" class="four-corner-all"/>
+	      <% end -%>
+	    </div>
+	    <div class="log_body">
+	      <%= raw(log.content) %>
+	      <br/>
+	      <span class="log_time"><%=t(".log_time_at")%><%= distance_of_time_in_words log.created_at, Time.now, true %><%=t(".before")%></span>
+	    </div>
+	  </li>
+	<% end -%>
+      </ul>
+    <% end -%>
+  </div>
+  <div style="clear: both"></div>
+</div>
+<!--推广链接-->
+<div id="invite_link" class="ui-corner-bottom">
+  您的推广链接：<span id="invite-url"><%= full_host %>/invite/<%= current_user.id %></span>
+  <input type="button" value="复制链接发送给你的好友" onclick="Common.copyClipboard($('#invite-url').text());" />
+  　<a href="/questions/1">推广获得金币？</a>
+</div>
+<!--用户反馈-->
+<div id="feedback">
+  <h3 class="feedback"><%=t(".feedback")%>(金币+2)</h3>
+  <div class="float-l" style="width: 500px;"><%= render :partial => '/feedbacks/new' %></div>
+  <div class="float-r" style="width: 215px;">
+    <ul>
+      <li><%=t(".thanks_for_feedback")%></li>
+      <li><%=t(".thanks_for_feedback2")%></li>
+    </ul>
+    <span class="ui-icon-green ui-icon-folder-open icon_span"></span><%= link_to t(".find_my_suggestion"), feedbacks_path(:user_id => current_user.id) %>
+    <br/>
+    <span class="ui-icon-green ui-icon-folder-open icon_span"></span><%= link_to t(".what_people_talk_about"), feedbacks_path %>
+  </div>
+  <div style="clear: both"></div>
+</div>
+<% content_for :script do %>
+  <script type="text/javascript">
+    // $(document).ready(function() {
+    //   $.get("/utilities/get_ip_location?ip=<%= current_user.last_sign_in_ip %>", function(data){
+    //	$('#ip-location').html(data);
+    //    });
+    // });
+  </script>
+<% end -%>

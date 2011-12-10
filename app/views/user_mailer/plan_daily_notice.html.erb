@@ -1,0 +1,16 @@
+<div class="site_unit">
+  <p>Hi,<%= @user.username %>!</p>
+  <p>你的计划｛<%= @plan.name %>｝已经进行到了<%= @plan.current_log.local_index %>，整个计划已经完成了<%= "#{@plan.ratio}%" %>!</p>
+  <p><img src="http://wtools.cn/show/<%= url_encode(@user.username) %>/plans/<%= @plan.id %>.png" alt="<%= @plan.name %>进度条图片版" /></p>
+  <p>按照你自己定制的计划，<%= @time_type %>你需要做完成以下目标：</p>
+  <p><h1><%= @plan.current_log.content %></h1></p>
+  <p>今天的事不要留给明天，希望你能按时完成！</p>
+  <p>你可以修改这个计划：<a href="http://wtools.cn/plans/<%= @plan.id %>/edit" target="_blank">http://wtools.cn/plans/<%= @plan.id %>/edit</a></p>
+  <p><br /><br />
+    <b>相关链接：</b><br />
+    外部引用地址(iframe)：<a href="http://wtools.cn/show/<%= url_encode(@user.username) %>/plans/<%= @plan.id %>" target="_blank">http://wtools.cn/show/<%= url_encode(@user.username) %>/plans/<%= @plan.id %></a><br />
+    外部引用地址(图片)：<a href="http://wtools.cn/show/<%= url_encode(@user.username) %>/plans/<%= @plan.id %>.png" target="_blank">http://wtools.cn/show/<%= url_encode(@user.username) %>/plans/<%= @plan.id %>.png</a><br />
+    计划详细信息：<a href="http://wtools.cn/plans/<%= @plan.id %>" target="_blank">http://wtools.cn/plans/<%= @plan.id %></a><br />
+    常见问题：<a href="http://wtools.cn/questions" target="_blank">http://wtools.cn/questions</a><br />
+  </p>
+</div>

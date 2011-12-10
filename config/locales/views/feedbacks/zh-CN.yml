@@ -1,0 +1,27 @@
+'zh-CN':
+  feedbacks:
+    index:
+      h1: "用户反馈列表"
+      plan_feedback: "计划"
+      job_feedback: "任务"
+      vote: "投票"
+      agree: "支持"
+      against: "反对"
+      nothing: "暂时还没有任何反馈哦！"
+      doit: "我来反馈一下"
+    form:
+      plan_feedback: "计划"
+      job_feedback: "任务"
+      title: "标题"
+      content: "内容"
+      apply: "应用: "
+      job: "任务"
+      plan: "计划"
+    show:
+      plan_feedback: "计划"
+      job_feedback: "任务"
+      answer: "发表于: "
+      replay: "回复"
+      support: "支持"
+      against: "反对"
+

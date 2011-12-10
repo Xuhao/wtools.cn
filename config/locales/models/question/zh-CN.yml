@@ -1,0 +1,10 @@
+'zh-CN':
+  activerecord:
+    models:
+      question: "问答"
+    attributes:
+      question:
+        type: "类型"
+        name: "标题"
+        answer: "回答"
+        hits: "点击数"

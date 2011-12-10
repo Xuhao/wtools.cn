@@ -1,0 +1,12 @@
+<div>
+  <%= form.label :title, nil, :class => nil %>
+  <%= form.text_field :title, :style => "width: 92%;" %><br />
+  <%= form.label :content, nil, :class => nil, :style => "vertical-align: top" %>
+  <%= form.text_area :content, :class => "xheditor-simple {skin:'nostyle'}", :style => 'height: 100px;' %>
+  <div style="height: 30px; line-height: 30px; margin-top: 5px;">
+    <%= form.label :type, nil, :class => nil %>
+    <%= radio_button_tag 'model_type', 'JobFeedback', form.object.new_record? || form.object.type == 'JobFeedback' %><%= label_tag 'model_type_JobFeedback', t(".job") %>　
+    <%= radio_button_tag 'model_type', 'PlanFeedback', form.object.type == 'PlanFeedback' %><%= label_tag 'model_type_PlanFeedback',t(".plan") %><span class="require">*</span>
+    <%= form.submit t("buttons.submit"), :style => "float: right;" %>
+  </div>
+</div>
